@@ -53,10 +53,10 @@ uses Java 7, we need to write the application using Play 2.3 (in Java 7).
 Errors after the App is deployed**
 
 Furthermore, since Play 2.0, the Framework doesn't support Modules anymore. This
-brakes the [offical App Engine plugin](https://www.playframework.com/documentation/1.0/gae)
-so we are forced to use an unoffical one from the community
+breaks the [official App Engine plugin](https://www.playframework.com/documentation/1.0/gae)
+so we are forced to use an unofficial one from the community
 ([source](https://github.com/siderakis/playframework-appengine)). However, this
-unoffical plugin is written purely in Scala, enforcing the Scala language for
+unofficial plugin is written purely in Scala, enforcing the Scala language for
 play controllers.
 
 As we are required to write all our logic in Java, this project introduces the
