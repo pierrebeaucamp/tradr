@@ -43,11 +43,6 @@ sbt appengineDeploy
 *I (Pierre) am working on automate deployment using some CI Servers, so please
 stay tuned for updates*
 
-### Helpful commands
-If you want Gulp to watch for changes you can run
-````
-gulp watch
-````
 
 ## Developing
 The folder structure follows the 

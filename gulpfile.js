@@ -116,14 +116,6 @@ gulp.task('html', function () {
 // Clean output directory
 gulp.task('clean', del.bind(null, ['.tmp', 'src/main/webapp/*', '!src/main/webapp/.git'], {dot: true}));
 
-// Watch files for changes & reload
-gulp.task('watch', ['styles'], function () {
-  gulp.watch(['src/main/twirl/**/*.html']);
-  gulp.watch(['src/main/assets/styles/**/*.{scss,css}'], ['styles']);
-  gulp.watch(['src/main/assets/scripts/**/*.js'], ['jshint']);
-  gulp.watch(['src/main/assets/images/**/*']);
-});
-
 // Build production files, the default task
 gulp.task('default', ['clean'], function (cb) {
   runSequence(

@@ -79,5 +79,5 @@
     });
   }
 
-  // custom JavaScript goes here
+  //Custom JavaScript goes here
 })();
