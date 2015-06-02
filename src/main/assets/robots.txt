@@ -1,0 +1,6 @@
+# www.robotstxt.org/
+
+# Only allow crawling on the root directoy
+user-agent: *
+Allow: /$
+Disallow: /
