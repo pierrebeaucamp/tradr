@@ -3,7 +3,7 @@
 Tradr is a platform to help people looking for, giving away or exchanging items 
 to find suitable trading partners with minimum time and effort invested.
 
-**Current Version:** *0.0.1*
+**Current Version:** *0.0.2*
 
 ## Prerequisites
 This project is built using ``sbt``, **not** ``activator``. Therefore, you'll 
@@ -17,24 +17,26 @@ the directory of the SDK:
 export APPENGINE_SDK_HOME=/path/to/appengine-java-sdk
 ````
 
-Finally, for all the Frontend work, we need [Gulp](http://gulpjs.com/). Once you
-have Gulp installed, run ``npm install`` to get all dependencies.
+Finally, for all the Frontend work, we need [Gulp](http://gulpjs.com/).
 
 ## Building
-First, you need to build all the frontend code using Gulp:
+First, get all the dependencies for Gulp:
 ````
-gulp
+npm install
 ````
 
-To test the application, run:
+Afterwards, you need to build all the frontend code using Gulp:
 ````
-sbt test
+gulp
 ````
 
 To run a local developer server, run:
 ````
 sbt ~appengineDevServer
 ````
+This local server will rebuild itself once it detects changes in one of the source
+files. So you don't need to kill the process everytime you want to rebuild the
+project.
 
 To deploy the application to Google App Engine, run:
 ````

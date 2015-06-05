@@ -1,0 +1,17 @@
+@(url: String)
+
+@main("Upload") {
+    <br>
+    <form action="@url" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="input-title">Title</label>
+            <input type="text" name="title" id="input-title" required autofocus>
+        </div>
+        <div class="form-group">
+            <label for="input-file">Image</label>
+            <input type="file" name="image" id="input-file" required>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Submit" class="button--primary">
+    </form>
+}

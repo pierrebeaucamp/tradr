@@ -3,4 +3,9 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.PlayController.index
+GET     /               controllers.PlayController.index
+GET     /upload         controllers.PlayController.upload
+GET     /item/:id       controllers.PlayController.item(id: Long)
+
+# Upload
+POST   /submit          controllers.PlayController.addItem
