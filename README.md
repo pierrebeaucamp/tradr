@@ -42,9 +42,6 @@ To deploy the application to Google App Engine, run:
 ````
 sbt appengineDeploy
 ````
-*I (Pierre) am working on automate deployment using some CI Servers, so please
-stay tuned for updates*
-
 
 ## Developing
 The folder structure follows the 
@@ -69,7 +66,8 @@ the tradr_seba Java package so we can comply with our requirements.
 Finally, it is important that we update the Version number with each 
 commit. Once the CI is in place, App Engine will always run the latest version 
 of our code. To be able to debug and monitor the application, please update the 
-Version number in ``/README.md``, ``src/main/assets/manifest.json``, 
-``src/main/assets/manifest.webapp`` and ``src/main/assets/WEB-INF/appengine-web.xml``. 
+Version number in ``README.md``, ``src/main/assets/manifest.json``, 
+``src/main/assets/manifest.webapp``, ``appengine.sbt`` and 
+``src/main/assets/WEB-INF/appengine-web.xml``. 
 If I have some free time on my hands, I'll write a bash script to adjust the version
 number on the go, but for now, we need to update it manually.
