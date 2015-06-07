@@ -6,7 +6,8 @@
     <h4>Entries:</h4>
     <ul>
         @for(item <- items) {
-            <li><a href="#">@item.getProperty("title")</a></li>
+            <li><a href="/item/@item.getKey().getId()">@item.getProperty("title")</a></li>
+	    <img src="@item.getProperty("img_url")">
         }
     </ul>
 }

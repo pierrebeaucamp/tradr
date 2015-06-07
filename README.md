@@ -3,7 +3,7 @@
 Tradr is a platform to help people looking for, giving away or exchanging items 
 to find suitable trading partners with minimum time and effort invested.
 
-**Current Version:** *0.0.3*
+**Current Version:** *0.0.4*
 
 ## Prerequisites
 This project is built using ``sbt``, **not** ``activator``. Therefore, you'll 
