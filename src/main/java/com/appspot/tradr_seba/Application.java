@@ -3,6 +3,7 @@ package com.appspot.tradr_seba;
 import com.google.appengine.api.blobstore.*;
 import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.images.*;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +24,11 @@ public class Application {
 
         String title = item.getProperty("title").toString();
         String img_url = item.getProperty("img_url").toString();
+		String quality = item.getProperty("quality").toString();
+		String description = item.getProperty("description").toString();
+        return html.item.render(title, img_url, quality, description).toString();
+        //return html.item.render(title, img_url).toString();
 
-        return html.item.render(title, img_url).toString();
     }
 
     public static String upload() {
@@ -41,8 +45,11 @@ public class Application {
         } else {
             Entity item = new Entity("Item");
             ServingUrlOptions imageOptions = ServingUrlOptions.Builder.withBlobKey(blobKeys.get(0));                                                
-
+			Date dateEntered = new Date();
             item.setProperty("title", request.getParameter("title"));
+			item.setProperty("quality", request.getParameter("quality"));
+			item.setProperty("date_entered", dateEntered);
+			item.setProperty("description", request.getParameter("description"));
             item.setProperty("img_url", images.getServingUrl(imageOptions));
 
             datastore.put(item);
