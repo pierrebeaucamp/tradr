@@ -39,8 +39,11 @@ public class Application {
 
         String title = item.getProperty("title").toString();
         String img_url = item.getProperty("img_url").toString();
+		String quality = item.getProperty("quality").toString();
+		String description = item.getProperty("description").toString();
+        return html.item.render(title, img_url, quality, description).toString();
+        //return html.item.render(title, img_url).toString();
 
-        return html.item.render(title, img_url).toString();
     }
 
     public static String upload() {
@@ -51,15 +54,16 @@ public class Application {
     public static String addItem(HttpServletRequest request) {
         Map<String, List<BlobKey>> blobs = blobstore.getUploads(request);
         List<BlobKey> blobKeys = blobs.get("image");
-	Date currentDate = new Date();
         if (blobKeys == null || blobKeys.isEmpty()) {
             return "/";
         } else {
             Entity item = new Entity("Item");
             ServingUrlOptions imageOptions = ServingUrlOptions.Builder.withBlobKey(blobKeys.get(0));                                                
-
+			Date dateEntered = new Date();
             item.setProperty("title", request.getParameter("title"));
-	    item.setProperty("date_entered",currentDate);
+			item.setProperty("quality", request.getParameter("quality"));
+			item.setProperty("date_entered", dateEntered);
+			item.setProperty("description", request.getParameter("description"));
             item.setProperty("img_url", images.getServingUrl(imageOptions));
 
             datastore.put(item);
