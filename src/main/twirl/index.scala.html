@@ -1,18 +1,12 @@
-@*@import scala.collection.JavaConversions._
-@(items: List[com.google.appengine.api.datastore.Entity])*@
-@(num:Int)
+@(items: List[com.google.appengine.api.datastore.Entity])
+
 @main("Tradr") {
-  <h1 id="hello">Hello!</h1>
-  <p>I am testing.</p>  
-  <p>Number of entries:@num</p>    
-@*
-<ul>
-	<p> List </p>
-	@for(item <- items) {
-		<p> Item </p>
-		<li>@item.getProperty("title")</li>
-	}
-</ul>
-*@
-  <h2 id="get-started">Get Started.</h2>
+  <p>Total number of entires: @items.length</p>    
+
+    <h4>Entries:</h4>
+    <ul>
+        @for(item <- items) {
+            <li><a href="#">@item.getProperty("title")</a></li>
+        }
+    </ul>
 }
