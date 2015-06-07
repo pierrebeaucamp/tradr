@@ -1,7 +1,19 @@
+@*@import scala.collection.JavaConversions._
+@(items: List[com.google.appengine.api.datastore.Entity])*@
+@(num:Int)
 @main("Tradr") {
   <h1 id="hello">Hello!</h1>
-  <p>Welcome to Tradr.</p>
-
+  <p>I am testing.</p>  
+  <p>Titulo:@title</p>    
+  <p>NUMERO:@num</p>    
+@*
+<ul>
+	<p> List </p>
+	@for(item <- items) {
+		<p> Item </p>
+		<li>@item.getProperty("title")</li>
+	}
+</ul>
+*@
   <h2 id="get-started">Get Started.</h2>
-  <p>Read how to <a href="https://developers.google.com/web/starter-kit">Get Started</a> or check out the <a href="https://google.github.io/web-starter-kit/hello-world/styleguide.html">Style Guide</a>.</p>
 }
