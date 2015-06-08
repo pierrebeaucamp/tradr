@@ -16,31 +16,46 @@
 			float: left;
 			margin-bottom: 10px;
 		}
+		.outer {
+			float:left;
+		}
+
 	</style>
     <form action="@url" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="input-title"  class="input-field-label">Title</label>
-            <input type="text" name="title" id="input-title" required autofocus class="input-field">
-        </div>
-		<div class="form-group">
-			<label for="for-group" class="input-field-label">Quality</label>
-			<select name="quality" id="input-quality" required class="input-field">
-				<option value="very_poor">Very Poor</option>
-				<option value="poor">Poor</option>
-				<option value="medium" selected>Medium</option>
-				<option value="good">Good</option>
-				<option value="excellent">Excellent</option>
-			</select>
+		<div class="outer">
+			<div class="form-group">
+				<label for="input-title"  class="input-field-label">Title</label>
+				<input type="text" name="title" id="input-title" required autofocus class="input-field">
+			</div>
+			<div class="form-group">
+				<label for="for-group" class="input-field-label">Condition</label>
+				<select name="condition" id="input-condition" required class="input-field">
+					<option value="very_poor">Very Poor</option>
+					<option value="poor">Poor</option>
+					<option value="medium" selected>Medium</option>
+					<option value="good">Good</option>
+					<option value="excellent">Excellent</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="input-age"  class="input-field-label">Age</label>
+				<input type="text" name="age-value" id="input-age" class="input-field">
+				<select name="age-unit" id="input-age"  class="input-field" style="margin-left:10px">
+					<option value="days">Days</option>
+					<option value="months"selected>Months</option>
+					<option value="years">Years</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="input-file"  class="input-field-label"> Description </label>
+				<textarea rows="4" cols="50" name="description" id="input_description" class="input-field"> </textarea>	
+			</div>
+			<div class="form-group">
+				<label for="input-file"  class="input-field-label">Image</label>
+				<input type="file" name="image" id="input-file" required class="input-field">
+			</div>
 		</div>
-		<div class="form-group">
-			<label for="input-file"  class="input-field-label"> Description </label>
-			<textarea rows="4" cols="50" name="description" id="input_description" class="input-field"> </textarea>	
-		</div>
-        <div class="form-group">
-            <label for="input-file"  class="input-field-label">Image</label>
-            <input type="file" name="image" id="input-file" required class="input-field">
-        </div>
-        <div class="form-group" position="relative">
+        <div class="form-group" style="clear:both">
             <input type="submit" value="Submit" class="button--primary" >
 		</div>
     </form>
