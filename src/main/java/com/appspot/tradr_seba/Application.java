@@ -42,8 +42,9 @@ public class Application {
 		String condition = item.getProperty("condition").toString();
 		String age = item.getProperty("age").toString();
 		String description = item.getProperty("description").toString();
+		String purpose = item.getProperty("purpose").toString();
 		
-        return html.item.render(title, img_url, condition, age, description).toString();
+        return html.item.render(title, img_url, condition, age, purpose, description).toString();
     }
 
     public static String upload() {
@@ -72,6 +73,7 @@ public class Application {
 			item.setProperty("condition", request.getParameter("condition"));
 			item.setProperty("age", age);
 			item.setProperty("date_entered", dateEntered);
+			item.setProperty("purpose", request.getParameter("purpose"));
 			item.setProperty("description", request.getParameter("description"));
             item.setProperty("img_url", images.getServingUrl(imageOptions));
 
