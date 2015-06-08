@@ -46,7 +46,7 @@
   .secondary-content {
     position: relative;
     // background: #f5f5f5;
-    margin-top: ($lineHeight*2) - 1;
+    // margin-top: ($lineHeight*2) - 1;
     border-top: 1px solid $colorGrayKeyline;
 
     @include medium {

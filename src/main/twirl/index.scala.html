@@ -1,13 +1,26 @@
 @(items: List[com.google.appengine.api.datastore.Entity])
 
 @main("Tradr") {
-  <p>Total number of entires: @items.length</p>    
-
-    <h4>Entries:</h4>
-    <ul>
-        @for(item <- items) {
-            <li><a href="/item/@item.getKey().getId()">@item.getProperty("title")</a></li>
-	    <img src="@item.getProperty("img_url")">
-        }
-    </ul>
+    <section class="guides-section">
+        <ul class="guides-list container-medium">
+            @for(item <- items) {    
+                @if(items.indexOf(item) % 2 == 0) {            
+                    <li class="guides-list__item g--half">
+                } else {
+                    <li class="guides-list__item g--half g--last"> 
+                }
+                    <a href="/item/@item.getKey().getId()">
+                        <div class="primary-content">
+                            <img src="@item.getProperty("img_url")" alt="@item.getProperty("title")">
+                        </div>
+                        <div class="secondary-content">
+                            <ol class="list-links list-links--secondary">
+                                <li>@item.getProperty("title")</li>
+                            </ol>
+                        </div>
+                    </a>        
+                </li>
+            }
+        </ul>
+    </section>
 }

@@ -20,9 +20,6 @@ public class Application {
 
     public static String index() {
         Query query = new Query("Item");
-        
-        //query.addSort("date_entered",Query.SortDirection.ASCENDING);
-        
         FetchOptions options = FetchOptions.Builder.withLimit(25);
         List<com.google.appengine.api.datastore.Entity> entities = datastore.prepare(query).asList(options);
         
@@ -39,11 +36,11 @@ public class Application {
 
         String title = item.getProperty("title").toString();
         String img_url = item.getProperty("img_url").toString();
-		String condition = item.getProperty("condition").toString();
-		String age = item.getProperty("age").toString();
-		String description = item.getProperty("description").toString();
-		String purpose = item.getProperty("purpose").toString();
-		
+        String condition = item.getProperty("condition").toString();
+        String age = item.getProperty("age").toString();
+        String description = item.getProperty("description").toString();
+        String purpose = item.getProperty("purpose").toString();
+
         return html.item.render(title, img_url, condition, age, purpose, description).toString();
     }
 
@@ -55,30 +52,32 @@ public class Application {
     public static String addItem(HttpServletRequest request) {
         Map<String, List<BlobKey>> blobs = blobstore.getUploads(request);
         List<BlobKey> blobKeys = blobs.get("image");
+
         if (blobKeys == null || blobKeys.isEmpty()) {
             return "/";
-        } else {
-            Entity item = new Entity("Item");
-            ServingUrlOptions imageOptions = ServingUrlOptions.Builder.withBlobKey(blobKeys.get(0));                                                
-			Date dateEntered = new Date();
-			String ageValue = request.getParameter("age-value");
-			String ageUnit = request.getParameter("age-unit");
-			String age = ageValue + " " + ageUnit;
-			
-			if (ageValue.equals("")) {
-				age = "";
-			}
-			
-            item.setProperty("title", request.getParameter("title"));
-			item.setProperty("condition", request.getParameter("condition"));
-			item.setProperty("age", age);
-			item.setProperty("date_entered", dateEntered);
-			item.setProperty("purpose", request.getParameter("purpose"));
-			item.setProperty("description", request.getParameter("description"));
-            item.setProperty("img_url", images.getServingUrl(imageOptions));
-
-            datastore.put(item);
-            return "/item/" + Long.toString(item.getKey().getId());
         }
+
+        Entity item = new Entity("Item");
+        ServingUrlOptions imageOptions = ServingUrlOptions.Builder.withBlobKey(blobKeys.get(0)).secureUrl(true); 
+
+        Date dateEntered = new Date();
+        String ageValue = request.getParameter("age-value");
+        String ageUnit = request.getParameter("age-unit");
+        String age = ageValue + " " + ageUnit;
+        
+        if (ageValue.equals("")) {
+            age = "";
+        }
+        
+        item.setProperty("title", request.getParameter("title"));
+        item.setProperty("condition", request.getParameter("condition"));
+        item.setProperty("age", age);
+        item.setProperty("date_entered", dateEntered);
+        item.setProperty("purpose", request.getParameter("purpose"));
+        item.setProperty("description", request.getParameter("description"));
+        item.setProperty("img_url", images.getServingUrl(imageOptions));
+
+        datastore.put(item);
+        return "/item/" + Long.toString(item.getKey().getId());
     }
 }

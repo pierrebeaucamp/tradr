@@ -1,31 +1,23 @@
 @(title: String)(img_url: String)(condition: String)(age: String)(purpose: String)(description: String)
 
 @main(title) {
-		<div class="outer">
-			<div>
-				<label  class="input-field-label">Title</label>
-				<label  class="input-field">@title</label>
-			</div>
-			<div>
-				<label class="input-field-label">Condition</label>
-				<label class="input-field">@condition</label>
-			</div>
-			<div>
-				<label  class="input-field-label">Age</label>
-				<label  class="input-field">@age</label>
-			</div>
-			<div>
-				<label  class="input-field-label">Purpose</label>
-				<label  class="input-field">@purpose</label>
-			</div>
-			<div>
-				<label   class="input-field-label"> Description </label>
-				<label   class="input-field" style="minimum-width: 100px; maximum-width: 200px;"> @description </label>
-			</div>
-		</div>
-			<div style="clear:both;">
-				<img src="@img_url" alt="@title">			
-			</div>
-
-
+    <section class="editorial-header">
+        <div class="container">
+            <h1 class="editorial-header__title">@title</h1>
+            <p><img class="center" src="@img_url" srcset='@(img_url + "=s0") 600w' alt="@title" style="width: 100%;"></p> 
+            <p class"editorial-header__excerpt g-wide--pull-1">@description</p>
+            <div class="highlight-module  highlight-module--right   highlight-module--remember   highlight-module--inline ">
+                <div class="highlight-module__container  icon-exclamation ">
+                    <div class="highlight-module__content   g-wide--pull-1  ">
+                        <p class="highlight-module__title">Details</p>
+                        <ul class="highlight-module__list">
+                            <li>Condition: @condition</li>
+                            <li>Age: @age</li>
+                            <li>Purpose: @purpose</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 }
