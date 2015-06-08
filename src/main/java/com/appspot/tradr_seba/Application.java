@@ -39,11 +39,11 @@ public class Application {
 
         String title = item.getProperty("title").toString();
         String img_url = item.getProperty("img_url").toString();
-		String quality = item.getProperty("quality").toString();
+		String condition = item.getProperty("condition").toString();
+		String age = item.getProperty("age").toString();
 		String description = item.getProperty("description").toString();
-        return html.item.render(title, img_url, quality, description).toString();
-        //return html.item.render(title, img_url).toString();
-
+		
+        return html.item.render(title, img_url, condition, age, description).toString();
     }
 
     public static String upload() {
@@ -60,8 +60,10 @@ public class Application {
             Entity item = new Entity("Item");
             ServingUrlOptions imageOptions = ServingUrlOptions.Builder.withBlobKey(blobKeys.get(0));                                                
 			Date dateEntered = new Date();
+			
             item.setProperty("title", request.getParameter("title"));
-			item.setProperty("quality", request.getParameter("quality"));
+			item.setProperty("condition", request.getParameter("condition"));
+			item.setProperty("age", request.getParameter("age-value") + " " + request.getParameter("age-unit"));
 			item.setProperty("date_entered", dateEntered);
 			item.setProperty("description", request.getParameter("description"));
             item.setProperty("img_url", images.getServingUrl(imageOptions));
