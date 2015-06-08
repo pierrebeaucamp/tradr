@@ -1,4 +1,4 @@
-@(title: String)(img_url: String)(quality: String)(description: String)
+@(title: String)(img_url: String)(condition: String)(age: String)(description: String)
 
 @main(title) {
 	<h2> Thank You for adding an item on our platform! </h2> 
@@ -7,7 +7,8 @@
 		<tr>
 			<td>
 				<h4><b>@title</b></h4>
-				<h4>@quality</h4>
+				<h4>@condition</h4>
+				<h4>@age</h4>
 				<h4>@description</h4>
 			</td>
 			<td>
