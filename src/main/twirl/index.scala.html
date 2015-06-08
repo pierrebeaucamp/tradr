@@ -11,7 +11,7 @@
                 }
                     <a href="/item/@item.getKey().getId()">
                         <div class="primary-content">
-                            <img src="@item.getProperty("img_url")" alt="@item.getProperty("title")">
+                            <img src='@(item.getProperty("img_url") + "=s300")'  srcset='@item.getProperty("img_url") 400w' alt="@item.getProperty("title")">
                         </div>
                         <div class="secondary-content">
                             <ol class="list-links list-links--secondary">

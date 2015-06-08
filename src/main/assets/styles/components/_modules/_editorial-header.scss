@@ -43,8 +43,9 @@
   font-family: $fontHighlight;
 }
 
-.editorial-header .tag{
-  padding-top: $lineHeight*2;
+.editorial-header .tag,
+.editorial-header .editorial-header__title {
+  padding-top: $lineHeight*2.5;
 }
 
 .editorial-header__subtitle {

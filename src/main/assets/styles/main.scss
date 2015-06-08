@@ -59,7 +59,7 @@ body.open {
 }
 
 .app-bar.open,
-.app-bar.open ~ main {
+.app-bar.open ~ section {
   -webkit-transform: translate(250px, 0);
           transform: translate(250px, 0);
 }
@@ -167,7 +167,7 @@ ol {
 
 .app-bar,
 .navdrawer-container.opened,
-main {
+section {
   -webkit-transition: -webkit-transform 0.3s ease-out;
           transition: transform 0.3s ease-out;
 }
@@ -237,7 +237,7 @@ main {
   }
 
   .app-bar.open,
-  .app-bar.open ~ main {
+  .app-bar.open ~ section {
     -webkit-transform: translate(0px, 0);
             transform: translate(0px, 0);
   }
