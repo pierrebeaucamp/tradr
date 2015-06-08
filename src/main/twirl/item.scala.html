@@ -3,8 +3,8 @@
 @main(title) {
 	<h2> Thank You for adding an item on our platform! </h2> 
 	<h3>You have submitted the following item: </h3>
-	<!-- will remove css from here, once I find out where to dump it :) -->
 		<style type="text/css">
+		/* will remove css from here, once I find out where to dump it :) */
 		.input-field-label{
 			display: inline-block;
 			float: left;
@@ -24,7 +24,7 @@
 		}
 
 	</style>
-	<div class="outer">
+		<div class="outer">
 			<div>
 				<label  class="input-field-label">Title</label>
 				<label  class="input-field">@title</label>
@@ -41,10 +41,10 @@
 				<label   class="input-field-label"> Description </label>
 				<label   class="input-field" style="minimum-width: 100px; maximum-width: 200px;"> @description </label>
 			</div>
-			<div style="margin-left:auto;">
+		</div>
+			<div style="clear:both;">
 				<img src="@img_url" alt="@title">			
 			</div>
-	</div>
 
 
 }
