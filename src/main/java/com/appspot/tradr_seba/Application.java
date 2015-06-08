@@ -60,10 +60,17 @@ public class Application {
             Entity item = new Entity("Item");
             ServingUrlOptions imageOptions = ServingUrlOptions.Builder.withBlobKey(blobKeys.get(0));                                                
 			Date dateEntered = new Date();
+			String ageValue = request.getParameter("age-value");
+			String ageUnit = request.getParameter("age-unit");
+			String age = ageValue + " " + ageUnit;
+			
+			if (ageValue.equals("")) {
+				age = "";
+			}
 			
             item.setProperty("title", request.getParameter("title"));
 			item.setProperty("condition", request.getParameter("condition"));
-			item.setProperty("age", request.getParameter("age-value") + " " + request.getParameter("age-unit"));
+			item.setProperty("age", age);
 			item.setProperty("date_entered", dateEntered);
 			item.setProperty("description", request.getParameter("description"));
             item.setProperty("img_url", images.getServingUrl(imageOptions));
