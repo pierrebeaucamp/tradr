@@ -1,29 +1,6 @@
-@(title: String)(img_url: String)(condition: String)(age: String ="24")(description: String)
+@(title: String)(img_url: String)(condition: String)(age: String)(purpose: String)(description: String)
 
 @main(title) {
-	<h2> Thank You for adding an item on our platform! </h2> 
-	<h3>You have submitted the following item: </h3>
-		<style type="text/css">
-		/* will remove css from here, once I find out where to dump it :) */
-		.input-field-label{
-			display: inline-block;
-			float: left;
-			clear: left;
-			width: 250px;
-			text-align: left;
-			margin-bottom: 10px;
-		}
-		.input-field {
-			display: inline-block;
-			float: left;
-			margin-bottom: 10px;
-		}
-		.outer {
-			position: relative;
-			margin-right: 30px;
-		}
-
-	</style>
 		<div class="outer">
 			<div>
 				<label  class="input-field-label">Title</label>
@@ -36,6 +13,10 @@
 			<div>
 				<label  class="input-field-label">Age</label>
 				<label  class="input-field">@age</label>
+			</div>
+			<div>
+				<label  class="input-field-label">Purpose</label>
+				<label  class="input-field">@purpose</label>
 			</div>
 			<div>
 				<label   class="input-field-label"> Description </label>
