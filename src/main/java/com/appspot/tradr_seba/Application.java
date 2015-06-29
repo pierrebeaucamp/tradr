@@ -17,7 +17,7 @@ public class Application {
     private static BlobstoreService blobstore = BlobstoreServiceFactory.getBlobstoreService();
     private static DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     private static ImagesService images = ImagesServiceFactory.getImagesService();
-
+    
     public static String index() {
         Query query = new Query("Item");
         FetchOptions options = FetchOptions.Builder.withLimit(25);
@@ -31,7 +31,8 @@ public class Application {
         return scala.collection.JavaConversions.asScalaIterable(javaList).toList();
     }
 
-    public static String getItem(long id) throws EntityNotFoundException {
+
+   public static String getItem(long id) throws EntityNotFoundException {
         Entity item = datastore.get(KeyFactory.createKey("Item", id));
 
         String title = item.getProperty("title").toString();
@@ -42,13 +43,15 @@ public class Application {
         String purpose = item.getProperty("purpose").toString();
 
         return html.item.render(title, img_url, condition, age, purpose, description).toString();
-    }
+    } 
+    
+
 
     public static String upload() {
         String url = blobstore.createUploadUrl("/submit");
         return html.upload.render(url).toString();
     }
-
+    
     public static String addItem(HttpServletRequest request) {
         Map<String, List<BlobKey>> blobs = blobstore.getUploads(request);
         List<BlobKey> blobKeys = blobs.get("image");
@@ -57,7 +60,7 @@ public class Application {
             return "/";
         }
 
-        Entity item = new Entity("Item");
+            Entity item = new Entity("Item");
         ServingUrlOptions imageOptions = ServingUrlOptions.Builder.withBlobKey(blobKeys.get(0)).secureUrl(true); 
 
         Date dateEntered = new Date();
@@ -79,5 +82,6 @@ public class Application {
 
         datastore.put(item);
         return "/item/" + Long.toString(item.getKey().getId());
-    }
+    } 
+
 }

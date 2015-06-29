@@ -1,0 +1,13 @@
+@(users: List[com.google.appengine.api.datastore.Entity])
+
+@main("All users") {
+	<ol>
+	  @for(user <- users) {    
+          <li>Username:@user.getProperty("username")<br>
+              Password:@user.getProperty("password")<br>
+              Sex:@user.getProperty("sex")<br>
+              PhoneNo:@user.getProperty("PhoneNo")<br>
+              </li>
+		}
+	</ol>
+}

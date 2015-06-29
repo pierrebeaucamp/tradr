@@ -160,6 +160,26 @@ ol {
   overflow-y: auto;
 }
 
+#notice {padding-left:40px;text-align: right; display: inline-block;vertical-align: middle;margin: 0 1em 0 0; }                                                                                                                                  
+.userlogin {height:30px;width:1230px;float:left;position:relative;}
+.userlogin ul {padding-top:10px;list-style-type:none;font-size:14px;float:right;color:#3367D6;padding-right:50px;}
+.userlogin ul li {float:left;padding-right:20px;}
+.userlogin ul li::before { content: none;}
+.input {width:230px;}
+.userlogin ul li a:hover {color:red;text-decoration:none;}
+.userlogin ul li a:visited {color:3367D6;text-decoration:none;}
+.fulllogin {width:100%;height:100%;position:absolute;z-index:1;top:-100px;opacity:0.4;background-color:white;}
+.login {height:250px;width:400px;border:solid 1px #123456;position:absolute;z-index:2;overflow:auto;top:210px;left:260px;background-color:white;}
+.loginheader {width:330px;float:left;left:20px;border-bottom: solid 1px #000;position:relative;top:20px;bottom:20px;}
+.loginname {position:relative;float:left;}
+.logincancel {position:relative;float:left; left:200px;color:#3367D6;}
+#loginbody {width:300px;float:left;left:20px;}
+#loginparametername1 {float:left;padding-top:20px;padding-right:40px;position:relative;left:20px;}
+#login-input {position:relative;top:20px;}
+.forgotpassword {position:relative;float:left;left:45px;top:40px;color:#3367D6;}
+.forgotpassword a {text-decoration:none;}
+#Login {float:left;position:relative;top:40px;background-color:white;color:#3367D6;left:170px;border:none;}
+
 .navdrawer-container.open {
   -webkit-transform: translate(0, 0);
           transform: translate(0, 0);
