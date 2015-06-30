@@ -59,7 +59,8 @@
 					<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 					<script type="text/javascript">
 							$("#address-form").hide();
-							
+							var mapMarkers = [];
+							var marker;
 							function valueChanged(){
 								if ($("#input-location").is(":checked"))
 									$("#address-form").hide();
@@ -79,8 +80,15 @@
 								var address = $("#address").val();
 								geocoder.geocode({'address':address}, function(results, status){
 									if (status == google.maps.GeocoderStatus.OK){
-											alert(results[0].geometry.location);
 											map.setCenter(results[0].geometry.location);
+											var oldMarker = mapMarkers.shift();
+											marker = new google.maps.Marker({
+												map: map,
+												position: results[0].geometry.location
+											});
+											mapMarkers.push(marker);
+											oldMarker.setMap(null);
+											oldMarker=null;
 									} else {
 										alert("could not find your address : " + status);
 									}
