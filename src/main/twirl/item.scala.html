@@ -1,23 +1,31 @@
-@(title: String)(img_url: String)(condition: String)(age: String)(purpose: String)(description: String)
+@(item: com.google.appengine.api.datastore.Entity)
 
-@main(title) {
+@main(item.getProperty("title").toString()) {
     <section class="editorial-header">
         <div class="container">
-            <h1 class="editorial-header__title">@title</h1>
-            <p><img class="center" src="@img_url" srcset='@(img_url + "=s0") 600w' alt="@title" style="width: 100%;"></p> 
-            <p class"editorial-header__excerpt g-wide--pull-1">@description</p>
+            <h1 class="editorial-header__title">@item.getProperty("title")</h1>
+            <p><img class="center" src='@item.getProperty("img_url")' srcset='@(item.getProperty("img_url") + "=s0") 600w' alt='@item.getProperty("title")' style="width: 100%;"></p> 
+            <p class"editorial-header__excerpt g-wide--pull-1">
+                @item.getProperty("description")
+            </p>
             <div class="highlight-module  highlight-module--right   highlight-module--remember   highlight-module--inline ">
                 <div class="highlight-module__container  icon-exclamation ">
                     <div class="highlight-module__content   g-wide--pull-1  ">
                         <p class="highlight-module__title">Details</p>
                         <ul class="highlight-module__list">
-                            <li>Condition: @condition</li>
-                            <li>Age: @age</li>
-                            <li>Purpose: @purpose</li>
+                            <li>Condition: @item.getProperty("condition")</li>
+                            <li>Age: @item.getProperty("age")</li>
+                            <li>Purpose: @item.getProperty("purpose")</li>
                         </ul>
                     </div>
                 </div>
             </div>
+            <br>
+
+            <form action="/submit/offer" method="post">
+                <input type="hidden" value="@item.getKey().getId()" name="current_item">
+                <input type="submit" value="Make an offer" class="button--primary">
+            </form>
         </div>
     </section>
 }

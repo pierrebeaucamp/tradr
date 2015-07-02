@@ -19,7 +19,7 @@ public class Application {
         FetchOptions options = FetchOptions.Builder.withLimit(25);
         List<com.google.appengine.api.datastore.Entity> entities = Application.datastore.prepare(query).asList(options);
 
-        scala.collection.immutable.List<com.google.appengine.api.datastore.Entity> items = scalaList(entities);
+        scala.collection.immutable.List<com.google.appengine.api.datastore.Entity> items = Application.scalaList(entities);
         return html.index.render(items).toString();
     }
 

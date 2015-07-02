@@ -14,15 +14,7 @@ public class Item {
 
    public static String get(long id) throws EntityNotFoundException {
         Entity item = Application.datastore.get(KeyFactory.createKey("Item", id));
-
-        String title = item.getProperty("title").toString();
-        String img_url = item.getProperty("img_url").toString();
-        String condition = item.getProperty("condition").toString();
-        String age = item.getProperty("age").toString();
-        String description = item.getProperty("description").toString();
-        String purpose = item.getProperty("purpose").toString();
-
-        return html.item.render(title, img_url, condition, age, purpose, description).toString();
+        return html.item.render(item).toString();
     } 
     
     public static String form() {
@@ -60,5 +52,11 @@ public class Item {
 
         Application.datastore.put(item);
         return "/item/" + Long.toString(item.getKey().getId());
-    } 
+    }
+
+    public static Entity empty() {
+        Entity item = new Entity("Item");
+        item.setProperty("title", "Nothing");
+        return item;
+    }
 }

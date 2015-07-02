@@ -8,7 +8,11 @@ object PlayController extends Controller {
 
     def addItem = Action { request =>
         Redirect(Item.add(request.req))
-    }       
+    }      
+
+    def addOffer = Action { request => 
+        Redirect(Offer.add(request.req))
+    } 
 
     def index = Action {
         Ok(Application.index())

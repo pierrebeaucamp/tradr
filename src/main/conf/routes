@@ -16,7 +16,8 @@ GET     /user                   controllers.PlayController.user
 
 # Upload
 POST   /submit/item             controllers.PlayController.addItem
-POST   /submit/offer            controllers.PlayController.updateOffer
+POST   /submit/offer            controllers.PlayController.addOffer
+POST   /submit/update           controllers.PlayController.updateOffer
 POST   /afterlogin              controllers.PlayController.afterlogin
 POST   /afterregister           controllers.PlayController.afterregister
 POST   /afterchange             controllers.PlayController.afterchange
