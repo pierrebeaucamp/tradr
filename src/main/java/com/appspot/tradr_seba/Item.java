@@ -11,16 +11,6 @@ import twirl.api.Html;
 
 
 public class Item {
-
-   public static String get(long id) throws EntityNotFoundException {
-        Entity item = Application.datastore.get(KeyFactory.createKey("Item", id));
-        return html.item.render(item).toString();
-    } 
-    
-    public static String form() {
-        String url = Application.blobstore.createUploadUrl("/submit/item");
-        return html.upload.render(url).toString();
-    }
     
     public static String add(HttpServletRequest request) {
         Map<String, List<BlobKey>> blobs = Application.blobstore.getUploads(request);
@@ -57,6 +47,19 @@ public class Item {
     public static Entity empty() {
         Entity item = new Entity("Item");
         item.setProperty("title", "Nothing");
+        item.setProperty("condition", "");
+        item.setProperty("age", "");
+        item.setProperty("img_url", "images/icons/placeholder--small.png");
         return item;
     }
+
+    public static String form() {
+        String url = Application.blobstore.createUploadUrl("/submit/item");
+        return html.upload.render(url).toString();
+    }
+
+    public static String get(long id) throws EntityNotFoundException {
+        Entity item = Application.datastore.get(KeyFactory.createKey("Item", id));
+        return html.item.render(item).toString();
+    } 
 }

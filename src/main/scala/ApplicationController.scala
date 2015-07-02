@@ -11,7 +11,11 @@ object PlayController extends Controller {
     }      
 
     def addOffer = Action { request => 
-        Redirect(Offer.add(request.req))
+        try {
+            Redirect(Offer.add(request.req))
+        } catch {
+            case e: Exception => InternalServerError
+        }
     } 
 
     def index = Action {

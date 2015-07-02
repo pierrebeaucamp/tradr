@@ -13,9 +13,15 @@
                     <div class="highlight-module__content   g-wide--pull-1  ">
                         <p class="highlight-module__title">Details</p>
                         <ul class="highlight-module__list">
-                            <li>Condition: @item.getProperty("condition")</li>
-                            <li>Age: @item.getProperty("age")</li>
-                            <li>Purpose: @item.getProperty("purpose")</li>
+                            @if(item.getProperty("condition") != "") {
+                                <li>Condition: @item.getProperty("condition")</li>
+                            }
+                            @if(item.getProperty("age") != "") {
+                                <li>Age: @item.getProperty("age")</li>
+                            }
+                            @if(item.getProperty("purpose") != "") {
+                                <li>Purpose: @item.getProperty("purpose")</li>
+                            }
                         </ul>
                     </div>
                 </div>
