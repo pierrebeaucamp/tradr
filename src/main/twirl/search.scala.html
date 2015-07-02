@@ -6,6 +6,7 @@
 			<input type="text" name="tag" id="tag" required autofocus class="input-field">
 			<input type="submit" value="Search" class="button--primary">
 	</form>
+	@if(items != null){
         <ul class="guides-list container-medium">
             @for(item <- items) {    
                 @if(items.indexOf(item) % 2 == 0) {            
@@ -26,5 +27,8 @@
                 </li>
             }
         </ul>
+	} else {
+		<p> No Items! </p>
+	}
     </section>
 }
