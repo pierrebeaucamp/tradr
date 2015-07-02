@@ -49,7 +49,7 @@ public class Item {
         item.setProperty("title", "Nothing");
         item.setProperty("condition", "");
         item.setProperty("age", "");
-        item.setProperty("img_url", "images/icons/placeholder--small.png");
+        item.setProperty("img_url", "/images/icons/placeholder--small.png");
         return item;
     }
 
