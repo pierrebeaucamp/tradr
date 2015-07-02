@@ -48,7 +48,7 @@ public class Application {
 
 
     public static String upload() {
-        String url = blobstore.createUploadUrl("/submit");
+        String url = blobstore.createUploadUrl("/submit/item");
         return html.upload.render(url).toString();
     }
     
@@ -84,4 +84,15 @@ public class Application {
         return "/item/" + Long.toString(item.getKey().getId());
     } 
 
+    public static String offer(long id) throws EntityNotFoundException {
+        return "";
+    }
+
+    public static String offers() {
+        return "";
+    }
+
+    public static String updateOffer(HttpServletRequest request) {
+        return "";
+    }
 }

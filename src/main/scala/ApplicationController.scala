@@ -25,6 +25,7 @@ object PlayController extends Controller {
     def afterlogin = Action { request =>
        Ok(UserManagement.getUser(request.req))
     }
+
     def alluser = Action { 
         Ok(UserManagement.showuser())
         }
@@ -47,17 +48,31 @@ object PlayController extends Controller {
        Ok(UserManagement.user())
        }
     
-  def item(id: Long) = Action {
+    def item(id: Long) = Action {
         try {
             Ok(Application.getItem(id))
         } catch {
             case e: Exception => NotFound
         }
-  } 
+    } 
     
+    def offer(id: Long) = Action {
+        try {
+            Ok(Application.offer(id))
+        } catch {
+            case e: Exception => NotFound
+        }
+    }
+
+    def offers = Action {
+        Ok(Application.offers())
+    }
+
+    def updateOffer = Action { request =>
+        Ok(Application.updateOffer(request.req))
+    }
+
     def upload = Action {
         Ok(Application.upload())
     }
-   
-
 }
