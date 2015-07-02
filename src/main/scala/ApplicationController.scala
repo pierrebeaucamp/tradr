@@ -7,7 +7,7 @@ import play.{Result, Controller}
 object PlayController extends Controller {
 
     def addItem = Action { request =>
-        Redirect(Application.addItem(request.req))
+        Redirect(Item.add(request.req))
     }       
 
     def index = Action {
@@ -16,7 +16,7 @@ object PlayController extends Controller {
     
     def register = Action {
         Ok(UserManagement.index())
-      }
+    }
        
     def afterregister = Action { request =>
         Ok(UserManagement.addUser(request.req))
@@ -28,29 +28,31 @@ object PlayController extends Controller {
 
     def alluser = Action { 
         Ok(UserManagement.showuser())
-        }
+    }
      
     def afterchange = Action { request =>    
         Ok(UserManagement.ChangePassword(request.req))
-        }
-     def changepassword = Action {
+    }
+
+    def changepassword = Action {
         Ok(UserManagement.change())
-     }
+    }
+
     def findpassword = Action{
         Ok(UserManagement.findpasswordback())
-        }
+    }
     
     def afterrequestpassword = Action { request =>
        Ok(UserManagement.FindPassword(request.req))
-       }
+    }
        
     def user = Action{
        Ok(UserManagement.user())
-       }
+    }
     
     def item(id: Long) = Action {
         try {
-            Ok(Application.getItem(id))
+            Ok(Item.get(id))
         } catch {
             case e: Exception => NotFound
         }
@@ -58,21 +60,21 @@ object PlayController extends Controller {
     
     def offer(id: Long) = Action {
         try {
-            Ok(Application.offer(id))
+            Ok(Offer.get(id))
         } catch {
             case e: Exception => NotFound
         }
     }
 
     def offers = Action {
-        Ok(Application.offers())
+        Ok(Offer.all())
     }
 
     def updateOffer = Action { request =>
-        Ok(Application.updateOffer(request.req))
+        Ok(Offer.update(request.req))
     }
 
     def upload = Action {
-        Ok(Application.upload())
+        Ok(Item.form())
     }
 }
