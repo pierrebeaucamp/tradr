@@ -2,7 +2,7 @@ import sbtappengine.Plugin.{AppengineKeys => gae}
 import play.PlayProject
 
 name := "PlayFramework-AppEngine"
-version := "0.1.1"
+version := "0.1.2"
 scalaVersion := "2.10.4"
 
 resolvers += "Scala AppEngine Sbt Repo" at "http://siderakis.github.com/maven"

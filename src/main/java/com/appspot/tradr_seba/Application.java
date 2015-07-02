@@ -1,5 +1,7 @@
 package com.appspot.tradr_seba;
 
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import com.google.appengine.api.blobstore.*;
 import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.images.*;
@@ -7,36 +9,33 @@ import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import java.util.Date;
+import com.google.appengine.api.blobstore.*;                                   
+import com.google.appengine.api.datastore.*;                                   
+import com.google.appengine.api.images.*; 
 import java.util.List;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import scala.collection.immutable.*;
+import scala.collection.immutable.*;                                           
 import scala.collection.JavaConverters.*;
 import twirl.api.Html;
-//import org.apache.lucene.*;
-//import org.elasticsearch.node.NodeBuilder.*;
-//import org.elasticsearch.common.xcontent.XContentFactory.*;
 
 public class Application {
-    
-    private static BlobstoreService blobstore = BlobstoreServiceFactory.getBlobstoreService();
-    private static DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    private static ImagesService images = ImagesServiceFactory.getImagesService();
-    
+
+    public static BlobstoreService blobstore = BlobstoreServiceFactory.getBlobstoreService();
+    public static DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    public static ImagesService images = ImagesServiceFactory.getImagesService();
+
     public static String index() {
         //String url = "/searchTag";
         Query query = new Query("Item");
         FetchOptions options = FetchOptions.Builder.withLimit(25);
-        List<com.google.appengine.api.datastore.Entity> entities = datastore.prepare(query).asList(options);
-        
-        scala.collection.immutable.List<com.google.appengine.api.datastore.Entity> items = scalaList(entities);
+        List<com.google.appengine.api.datastore.Entity> entities = Application.datastore.prepare(query).asList(options);
+
+        scala.collection.immutable.List<com.google.appengine.api.datastore.Entity> items = Application.scalaList(entities);
         return html.index.render(items).toString();
     }
 
-    private static <T> scala.collection.immutable.List<T> scalaList(List<T> javaList) {
+    public static <T> scala.collection.immutable.List<T> scalaList(List<T> javaList) {
         return scala.collection.JavaConversions.asScalaIterable(javaList).toList();
     }
-
 
    public static String getItem(long id) throws EntityNotFoundException {
 
@@ -48,7 +47,8 @@ public class Application {
         String age = item.getProperty("age").toString();
         String description = item.getProperty("description").toString();
         String purpose = item.getProperty("purpose").toString();
-        return html.item.render(title, img_url, condition, age, purpose, description).toString();
+        //return html.item.render(title, img_url, condition, age, purpose, description).toString();
+        return html.item.render(item).toString();
     } 
 
     public static String upload() {

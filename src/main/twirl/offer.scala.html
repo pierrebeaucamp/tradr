@@ -1,0 +1,51 @@
+@(offer: com.google.appengine.api.datastore.Entity)(req: com.google.appengine.api.datastore.Entity)(offered: com.google.appengine.api.datastore.Entity)(items: List[com.google.appengine.api.datastore.Entity])
+
+@main("Offer") {
+    <section class="featured-section">
+        <div class="container-medium">
+            <h2>Offer for trading</h2>
+            <ul class="featured-list">
+                <li class="featured-list__item clear"> 
+                    <div class="container-small">
+                        <div class="featured-list__content g--third">
+                            <img src='@(req.getProperty("img_url") + "=s300")' alt="@req.getProperty("title")">
+                            <h4>@req.getProperty("title")</h4>
+                            <ul>
+                                @if(req.getProperty("condition") != "") {
+                                    <li>Condition: @req.getProperty("condition")</li>
+                                }
+                                @if(req.getProperty("age") != "") {
+                                    <li>Age: @req.getProperty("age")</li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="featured-list__content g--third" style="text-align: center; margin-top: 5em;">
+                            <i class="icon icon-multi-device-layouts"></i>
+                        </div>
+                        <div class="featured-list__content g--third g--last">
+                            <img src='@(offered.getProperty("img_url") + "=s300")' alt="@offered.getProperty("title")">
+                            <h4>@offered.getProperty("title")</h4>
+                             <ul>
+                                @if(offered.getProperty("condition") != "") {
+                                    <li>Condition: @offered.getProperty("condition")</li>
+                                }
+                                @if(offered.getProperty("age") != "") {
+                                    <li>Age: @offered.getProperty("age")</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            
+            <div class="g-wide--1 g-wide--push-2">
+                <a href="#" class="button--secondary">Reject offer</a>
+            </div>
+            <div class="g-wide--1 g-wide--last">
+                <a href="#" class="button--primary">Accept offer</a>
+            </div>
+
+            </ul>   
+        </div>
+        <br>
+    </section>
+}
