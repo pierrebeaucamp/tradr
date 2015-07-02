@@ -28,6 +28,24 @@ object PlayController extends Controller {
     def alluser = Action { 
         Ok(UserManagement.showuser())
         }
+     
+    def afterchange = Action { request =>    
+        Ok(UserManagement.ChangePassword(request.req))
+        }
+     def changepassword = Action {
+        Ok(UserManagement.change())
+     }
+    def findpassword = Action{
+        Ok(UserManagement.findpasswordback())
+        }
+    
+    def afterrequestpassword = Action { request =>
+       Ok(UserManagement.FindPassword(request.req))
+       }
+       
+    def user = Action{
+       Ok(UserManagement.user())
+       }
     
   def item(id: Long) = Action {
         try {

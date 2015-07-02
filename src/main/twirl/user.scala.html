@@ -1,0 +1,51 @@
+@(login:String)
+
+@main("User Page"){
+<div id="fullloginuser" style="width:100%;height:100%;position:absolute;z-index:1;top:-100px;opacity:0.4;background-color:white;"></div>
+ <section>
+   <main>   
+    <form action="/afterlogin" method="post">  
+   <div id="loginuser" style="height:250px;width:400px;position:absolute;border:solid 1px #123456; z-index:2;overflow:auto;top:210px;left:380px;background-color:white;">
+     <div id="loginheaderuser" style="width:330px;float:left;left:20px;position:relative;top:20px;bottom:20px;">
+      <legend id ="loginnameuser" style="position:relative;float:left;">User Login<Label id="logincanceluser" onclick="clicklogin()" style="position:relative;float:left; left:200px;color:#3367D6;">Cancel</Label></legend>
+      
+      </div>
+      <div class="loginbody" style="width:300px;float:left;left:20px;position:relative;top:15px;">
+      <label class="loginparametername" style="float:left;padding-top:20px;padding-right:40px;position:relative;left:20px;"> User Name :</label>
+      <input type="text" name="LoginUserName" class="login-input" style="position:relative;top:14px;" required autofocus class="input-field"/>
+     </div>
+     <div class="loginbody" style="width:300px;float:left;left:20px;position:relative;top:15px;">
+      <label class="loginparametername" style="float:left;padding-top:20px;padding-right:40px;position:relative;left:20px;"> Password :</label>
+      <input type="password" name="LoginPassword" class="login-input" style="position:relative;top:14px;" required autofocus class="input-field"/>
+     </div>
+     <div>
+     <label id="fotgotpassworduser" style="position:relative;float:left;left:45px;top:45px;color:#3367D6;"><a href="/findpassword" style="text-decoration:none;">forgot password ?</a></label>
+     <input type="submit" value="Login" class="Login" style="float:left;position:relative;top:38px;background-color:white;color:#3367D6;left:170px;border:none;"/>
+     </div> 
+   </div>
+  </form> 
+  
+  
+  <div id="userprofile">
+         user profil
+         <div class="input-form">
+         <Label><a href="/changepassword">change password</a></Label>
+         </div>
+  </div> 
+  
+  
+     <script type="text/javascript">
+       if(@login.equals("not")){
+    	   document.getElementById('fullloginuser').style.display="";
+    	   document.getElementById('loginuser').style.display="";
+    	   document.getElementById('userprofile').style.display="none";
+       }
+       if(@login.equals("yes")){
+    	   document.getElementById('fullloginuser').style.display="none";
+    	   document.getElementById('loginuser').style.display="none";
+    	   document.getElementById('userprofile').style.display="";
+       }  	   
+     </script>
+   </main>
+    </section>
+}
