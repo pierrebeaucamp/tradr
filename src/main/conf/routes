@@ -8,8 +8,10 @@ GET     /upload         controllers.PlayController.upload
 GET     /item/:id       controllers.PlayController.item(id: Long)
 GET     /register       controllers.PlayController.register
 GET     /alluser        controllers.PlayController.alluser
+GET	/searchTag	controllers.PlayController.searchTag(tag: String?="")
 
 # Upload
+#POST   /searchTag       controllers.PlayController.searchTag
 POST   /submit          controllers.PlayController.addItem
 POST   /afterlogin      controllers.PlayController.afterlogin
 POST   /afterregister   controllers.PlayController.afterregister

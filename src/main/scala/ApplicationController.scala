@@ -36,10 +36,19 @@ object PlayController extends Controller {
             case e: Exception => NotFound
         }
   } 
+  def searchTag(tag: String) = Action {
+        try {
+            Ok(Application.searchTag(tag))
+        } catch {
+            case e: Exception => NotFound
+        }
+  } 
     
     def upload = Action {
         Ok(Application.upload())
     }
+
    
+
 
 }
