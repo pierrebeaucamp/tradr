@@ -3,6 +3,9 @@ package com.appspot.tradr_seba;
 import com.google.appengine.api.blobstore.*;
 import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.images.*;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import scala.collection.immutable.*;
 import scala.collection.JavaConverters.*;
 import twirl.api.Html;
-
+//import org.apache.lucene.*;
+//import org.elasticsearch.node.NodeBuilder.*;
+//import org.elasticsearch.common.xcontent.XContentFactory.*;
 
 public class Application {
     
@@ -19,6 +24,7 @@ public class Application {
     private static ImagesService images = ImagesServiceFactory.getImagesService();
     
     public static String index() {
+        //String url = "/searchTag";
         Query query = new Query("Item");
         FetchOptions options = FetchOptions.Builder.withLimit(25);
         List<com.google.appengine.api.datastore.Entity> entities = datastore.prepare(query).asList(options);
@@ -33,6 +39,7 @@ public class Application {
 
 
    public static String getItem(long id) throws EntityNotFoundException {
+
         Entity item = datastore.get(KeyFactory.createKey("Item", id));
 
         String title = item.getProperty("title").toString();
@@ -41,11 +48,8 @@ public class Application {
         String age = item.getProperty("age").toString();
         String description = item.getProperty("description").toString();
         String purpose = item.getProperty("purpose").toString();
-
         return html.item.render(title, img_url, condition, age, purpose, description).toString();
     } 
-    
-
 
     public static String upload() {
         String url = blobstore.createUploadUrl("/submit");
@@ -53,6 +57,9 @@ public class Application {
     }
     
     public static String addItem(HttpServletRequest request) {
+	//Node node = nodeBuilder().node();
+	//Client client = node.client();
+
         Map<String, List<BlobKey>> blobs = blobstore.getUploads(request);
         List<BlobKey> blobKeys = blobs.get("image");
 
@@ -60,7 +67,7 @@ public class Application {
             return "/";
         }
 
-            Entity item = new Entity("Item");
+        Entity item = new Entity("Item");
         ServingUrlOptions imageOptions = ServingUrlOptions.Builder.withBlobKey(blobKeys.get(0)).secureUrl(true); 
 
         Date dateEntered = new Date();
@@ -71,7 +78,7 @@ public class Application {
         if (ageValue.equals("")) {
             age = "";
         }
-        
+	// Store into DB        
         item.setProperty("title", request.getParameter("title"));
         item.setProperty("condition", request.getParameter("condition"));
         item.setProperty("age", age);
@@ -81,7 +88,54 @@ public class Application {
         item.setProperty("img_url", images.getServingUrl(imageOptions));
 
         datastore.put(item);
+	String tags = request.getParameter("tags");
+	if (tags != "")	storeTags(item.getKey().getId(),tags);
+
+	//node.close();
         return "/item/" + Long.toString(item.getKey().getId());
     } 
+
+    public static void storeTags(long id, String tags) {
+	
+	String[] splitedTags = tags.split("\\s+");
+  	for(String strTag: splitedTags){
+		if (strTag != " "){
+			System.out.println("Tag found[" + id + "]:" + strTag);
+			Entity tag = new Entity("Tag");	
+			tag.setProperty("name",strTag);
+			tag.setProperty("itemId",id);
+			datastore.put(tag);
+		}	
+	}
+     }
+   
+     public static String searchTag (String tag) throws EntityNotFoundException {
+        String url = "/searchTag";
+	System.out.println("SearchTag:" + tag);
+	String responseHTML;
+	Filter tagFilter = new FilterPredicate("name",
+                      FilterOperator.EQUAL,
+                      tag);
+	Query query = new Query("Tag");
+	query.setFilter(tagFilter);   
+   
+        FetchOptions options = FetchOptions.Builder.withLimit(25);
+        List<com.google.appengine.api.datastore.Entity> entities = datastore.prepare(query).asList(options);
+	scala.collection.immutable.List<com.google.appengine.api.datastore.Entity> items = null;
+	for (com.google.appengine.api.datastore.Entity fetchedTag : entities){
+		String idStr = fetchedTag.getProperty("itemId").toString();
+		Long id = Long.valueOf(idStr).longValue();
+		try {
+			System.out.println("Item ID:"+id);						
+			Entity item = datastore.get(KeyFactory.createKey("Item",id));
+			items.$colon$colon((com.google.appengine.api.datastore.Entity) item);
+		}catch (Exception e){
+			System.out.println("Tag:" + fetchedTag.getProperty("name").toString() + " - NO ITEM");						
+		}
+	} 
+	System.out.println("Finished SearchTag");						
+        return html.search.render(items).toString();
+	
+   }
 
 }
