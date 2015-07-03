@@ -9,6 +9,7 @@ import scala.collection.JavaConverters.*;
 import twirl.api.Html;
 //import Sorter;
 
+
 public class Application {
 
     public static BlobstoreService blobstore = BlobstoreServiceFactory.getBlobstoreService();
@@ -21,6 +22,7 @@ public class Application {
         List<com.google.appengine.api.datastore.Entity> entities = Application.datastore.prepare(query).asList(options);
 
         scala.collection.immutable.List<com.google.appengine.api.datastore.Entity> items = Application.scalaList(entities);
+
 
         return html.index.render(items).toString();
     }
