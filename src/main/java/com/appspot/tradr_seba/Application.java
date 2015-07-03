@@ -57,8 +57,6 @@ public class Application {
     }
     
     public static String addItem(HttpServletRequest request) {
-	//Node node = nodeBuilder().node();
-	//Client client = node.client();
 
         Map<String, List<BlobKey>> blobs = blobstore.getUploads(request);
         List<BlobKey> blobKeys = blobs.get("image");
@@ -89,23 +87,23 @@ public class Application {
 
         datastore.put(item);
 	String tags = request.getParameter("tags");
-	if (tags != "")	storeTags(item.getKey().getId(),tags);
+	storeTags(Long.toString(item.getKey().getId()),tags);
+	System.out.println("StoreTags:"+tags.toString());
+	System.out.println("ItemId:"+Long.toString(item.getKey().getId()));
 
-	//node.close();
         return "/item/" + Long.toString(item.getKey().getId());
     } 
 
-    public static void storeTags(long id, String tags) {
+    public static void storeTags(String id, String tags) {
+	System.out.println("StoreTags:"+tags);
 	
 	String[] splitedTags = tags.split("\\s+");
   	for(String strTag: splitedTags){
-		if (strTag != " "){
 			System.out.println("Tag found[" + id + "]:" + strTag);
 			Entity tag = new Entity("Tag");	
 			tag.setProperty("name",strTag);
 			tag.setProperty("itemId",id);
 			datastore.put(tag);
-		}	
 	}
      }
    
@@ -115,7 +113,7 @@ public class Application {
 	String responseHTML;
 	Filter tagFilter = new FilterPredicate("name",
                       FilterOperator.EQUAL,
-                      tag);
+                      "musica");
 	Query query = new Query("Tag");
 	query.setFilter(tagFilter);   
    
@@ -133,7 +131,7 @@ public class Application {
 			System.out.println("Tag:" + fetchedTag.getProperty("name").toString() + " - NO ITEM");						
 		}
 	} 
-	System.out.println("Finished SearchTag");						
+	//System.out.println("Finished SearchTag:"+items.size());						
         return html.search.render(items).toString();
 	
    }
