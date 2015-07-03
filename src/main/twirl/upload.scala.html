@@ -49,7 +49,7 @@
 						<input type="checkbox" name="location" id="input-location" value="1" checked onchange="valueChanged()">Use your current location</input>
 					</div>
 					<div class="form-group" id="address-form">
-						<label for="input-location" class="input-field-label" >Street name/postal code, and city</label>
+						<label for="input-location" class="input-field-label" >Where can it be picked up?</label>
 						<input type="text" name="address" id="address" class="input-field">
 						<input type="button" name="find-address" id="find-address"  onclick="findAddress()">Find it!</input>
 						 <div id="map-canvas"   style="height:500px; width:600px"></div>
@@ -61,13 +61,18 @@
 							$("#address-form").hide();
 							var mapMarkers = [];
 							var marker;
+							var current_pos;
+							if(navigator.geolocation) {
+									navigator.geolocation.getCurrentPosition(function(position) {
+									current_pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+								});
+							}
+							
 							function valueChanged(){
 								if ($("#input-location").is(":checked"))
-									//$("#address-form").prop('required',false);
 									$("#address-form").hide();
 								else
 									$("#address-form").show();
-									$("#address-form").prop('required',true);
 									initialize();
 							}
 						
@@ -104,11 +109,18 @@
 								});
 							}
 							function appendLocationData(){
+								var pos;
+								if ($("#input-location").is(":checked")){
+									pos = current_pos;
+								} else  {
+									pos = mapMarkers[0].position;
+								}			
 								var input = $("<input>")
 									.attr("type", "hidden")
-									.attr("name", "location").val(mapMarkers[0].position);
+									.attr("name", "location").val(pos);
 									$('#form1').append($(input));
 							}
+							
 
 						</script>
                     <div class="form-group">
