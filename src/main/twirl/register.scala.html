@@ -1,6 +1,19 @@
-
+@(username:String)(password:String)(repeatpassword:String)
 
 @main("Register") {
+
+   <div id="fullfailregister" style="width:100%;height:100%;position:absolute;z-index:1;top:-100px;opacity:0.4;background-color:white;">
+   </div>
+ 
+   <div id="failregister" style="height:200px;width:400px;position:absolute;border:solid 1px #123456; z-index:2;overflow:auto;top:210px;left:380px;background-color:white;">
+              <label id="error1messageregister" style="color:#3367D6;font-size:20px;top:40px;left:40px;position:relative;"></label>
+              <label id="error2messageregister" style="color:#3367D6;font-size:20px;top:40px;left:40px;position:relative;"></label>
+              <label id="error3messageregister" style="color:#3367D6;font-size:20px;top:40px;left:40px;position:relative;"></label>
+              <div style="top:60px;left:40px;position:relative;width:300px;">
+              <label style="color:#3367D6;font-size:20px;"><a href="/register" style="text-decoration:none">Retry!</a></label>
+              </div>
+             </div>
+   
     <section>
         <main>
             <form action="/afterregister" method="post">
@@ -20,34 +33,45 @@
                     </div>
                     <div class="form-group">    
                         <label for="input-passwword" class="input">Password *</label>
-                        <input type="password" name="password" id="password" class="input-field">
+                        <input type="password" name="password" id="password" required autofocus class="input-field">
                         <label class="notice" style="padding-left:40px">Password should be at least 6, at most 12 numbers!</label>
                     </div>
                     <div class="form-group">    
                         <label for="input-password" class="input">Repeat Password *</label>
-                        <input type="password" name="repeatpassword" id="repeatpassword" class="input-field">
+                        <input type="password" name="repeatpassword" id="repeatpassword" required autofocus class="input-field">
                     </div>
                    <div class="form-group">    
                         <label for="input-email" class="input">Email Address *</label>
-                        <input type="text" name="email" id="email" class="input-field">
+                        <input type="text" name="email" id="email" required autofocus class="input-field">
                     </div>
                     <div class="form-group">    
                         <label for="input-PhoneNo" class="input">Phone Number</label>
-                        <input type="number" name="PhoneNo" id="PhoneNo" class="input-field">
+                        <input type="text" name="PhoneNo" id="PhoneNo" class="input-field">
                     </div>
                     <div class="form-group">
-                        <input type="submit" onclick="check()" value="Submit" class="button--primary" >
+                        <input type="submit" value="Submit" class="button--primary" >
                     </div>
                     
                     <script type="text/javascript">
-                      function check(){
-                    	  var username = document.getElementById('username').value.toString();
-                    	  var password = document.getElementById('password').value.toString();
-                    	  var repeatpassword = document.getElementById('repeatpassword').value.toString();
-                    	  var email = document.getElementById('email').value.toString();
-                    	  if(username =="" || password =="" || repeatpassword =="" || email =="")
-                    		  alert("wrong!");
-                      }
+                    document.getElementById("fullfailregister").style.display="none";
+                    document.getElementById("failregister").style.display="none";
+
+                    if(@username.equals("userfail")){
+                        document.getElementById("fullfailregister").style.display="";
+                        document.getElementById("failregister").style.display=""; 
+                        document.getElementById("error1messageregister").innerHTML='User name is not in a right format!';
+                    }
+                    if(@password.equals("passwordfail")){
+                        document.getElementById("fullfailregister").style.display="";
+                        document.getElementById("failregister").style.display="";
+                        document.getElementById("error2messageregister").innerHTML='Password is not in a right format!';
+                    }
+                    if(@repeatpassword.equals("passwordnotthesame")){
+                        document.getElementById("fullfailregister").style.display="";
+                        document.getElementById("failregister").style.display="";
+                        document.getElementById("error3messageregister").innerHTML="You should enter the same passwords!";
+                    }
+                    	 
                     </script>
                 </fieldset>
             </form>

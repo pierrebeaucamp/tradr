@@ -46,35 +46,32 @@
         <li><a href="/">Home</a></li>
         <li><a href="/add">Add Item</a></li>
         <li><label onclick="clicklogin()" style="padding:17px 20px;top:15px;position:relative;">My Tradr</label></li>
+<<<<<<< HEAD
+        <li><a href="/register">Register</a>
+=======
         <li><a href="/offers">View Offers</a></li>
+>>>>>>> 723200dd4d1c583da336ac0125034349ebc1dca5
       </ul>
     </nav>
     
-    <div class="userlogin">
-     <ul>
-       <li class="usernav"><label id="loginlable" onclick="clicklogin()">login</label></li>
-       <li class="usernav"><a href="/register" style="text-decoration:none;">register</a></li>
-       <li class="usernav">service</li>
-     </ul>
-    </div>
-    <div id="fulllogin" style="width:100%;height:100%;position:absolute;z-index:1;top:-100px;opacity:0.4;background-color:white;"></div>
+    <div id="fulllogin" class="fulllogin"></div>
     <form action="/afterlogin" method="post">  
-   <div id="login" style="height:250px;width:400px;position:absolute;border:solid 1px #123456; z-index:2;overflow:auto;top:210px;left:380px;background-color:white;">
-     <div id="loginheader" style="width:330px;float:left;left:20px;position:relative;top:20px;bottom:20px;">
-      <legend id ="loginname" style="position:relative;float:left;">User Login<Label id="logincancel" onclick="clicklogin()" style="position:relative;float:left; left:200px;color:#3367D6;">Cancel</Label></legend>
+   <div id="login" class="login">
+     <div id="loginheader" class="loginheader">
+      <legend id ="loginname" class="loginname">User Login<Label id="logincancel" onclick="clicklogin()" class="logincancel">Cancel</Label></legend>
       
       </div>
-      <div class="loginbody" style="width:300px;float:left;left:20px;position:relative;top:15px;">
-      <label class="loginparametername" style="float:left;padding-top:20px;padding-right:40px;position:relative;left:20px;"> User Name :</label>
-      <input type="text" name="LoginUserName" class="login-input" style="position:relative;top:14px;" required autofocus class="input-field"/>
+      <div class="loginbody">
+      <label class="loginparametername"> User Name :</label>
+      <input type="text" name="LoginUserName" class="login-input" required autofocus class="input-field"/>
      </div>
-     <div class="loginbody" style="width:300px;float:left;left:20px;position:relative;top:15px;">
-      <label class="loginparametername" style="float:left;padding-top:20px;padding-right:40px;position:relative;left:20px;"> Password :</label>
-      <input type="password" name="LoginPassword" class="login-input" style="position:relative;top:14px;" required autofocus class="input-field"/>
+     <div class="loginbody" >
+      <label class="loginparametername"> Password :</label>
+      <input type="password" name="LoginPassword" class="login-input" required autofocus class="input-field"/>
      </div>
      <div>
-     <label id="fotgotpassword" style="position:relative;float:left;left:45px;top:45px;color:#3367D6;"><a href="/findpassword" style="text-decoration:none;">forgot password ?</a></label>
-     <input type="submit" value="Login" class="Login" style="float:left;position:relative;top:38px;background-color:white;color:#3367D6;left:170px;border:none;"/>
+     <label id="forgotpassword" class="forgotpassword"><a href="/findpassword" style="text-decoration:none;">forgot password ?</a></label>
+     <input type="submit" value="Login" class="Login"/>
      </div> 
    </div>
   </form>  

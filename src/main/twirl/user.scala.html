@@ -1,12 +1,27 @@
 @(login:String)
 
 @main("User Page"){
-<div id="fullloginuser" style="width:100%;height:100%;position:absolute;z-index:1;top:-100px;opacity:0.4;background-color:white;"></div>
+<div id="fullloginuser" class="fulllogin"></div>
+    <div id="userlogin" class="userlogin">
+     <ul>
+       <li class="usernav"><a href="/changepassword">change password</a></li>
+       <li class="usernav">service</li>
+     </ul>
+    </div>
  <section>
-   <main>   
+   <main> 
+    <div id="notlogin" class="form-group">
+    <ul>
+     <li><label id="notloginerror" class="notloginerror"></label></li>
+     <li><label id="returnlogin"   class="returnlogin">
+       <a href="/user" class="return">return</a>
+      </label>
+     </li>
+    </ul>
+    </div>
     <form action="/afterlogin" method="post">  
-   <div id="loginuser" style="height:250px;width:400px;position:absolute;border:solid 1px #123456; z-index:2;overflow:auto;top:210px;left:380px;background-color:white;">
-     <div id="loginheaderuser" style="width:330px;float:left;left:20px;position:relative;top:20px;bottom:20px;">
+   <div id="loginuser" class="login">
+     <div id="loginheaderuser" "class="loginheader" style="width:330px;float:left;left:20px;position:relative;top:20px;bottom:20px;">
       <legend id ="loginnameuser" style="position:relative;float:left;">User Login<Label id="logincanceluser" onclick="clicklogin()" style="position:relative;float:left; left:200px;color:#3367D6;">Cancel</Label></legend>
       
       </div>
@@ -24,27 +39,38 @@
      </div> 
    </div>
   </form> 
-  
-  
-  <div id="userprofile">
-         user profil
-         <div class="input-form">
-         <Label><a href="/changepassword">change password</a></Label>
-         </div>
-  </div> 
-  
-  
+  <div id="loginright" class="form-group">
+   <label id="loginstate" style="font-size:20px;color:#3367D6;top:70px;left:120px;position:relative;">You have successfully login to Tradr, enjoy!</label>
+  </div>
+   
      <script type="text/javascript">
+        document.getElementById("notlogin").style.display="none";
+        document.getElementById("loginright").style.display="none";
        if(@login.equals("not")){
     	   document.getElementById('fullloginuser').style.display="";
     	   document.getElementById('loginuser').style.display="";
-    	   document.getElementById('userprofile').style.display="none";
+    	   document.getElementById('userlogin').style.display="none";
        }
        if(@login.equals("yes")){
     	   document.getElementById('fullloginuser').style.display="none";
     	   document.getElementById('loginuser').style.display="none";
-    	   document.getElementById('userprofile').style.display="";
-       }  	   
+    	   document.getElementById('userlogin').style.display="";
+    	   document.getElementById('loginright').style.display="";
+       } 
+       if(@login.equals("usernot")){
+    	   document.getElementById("notloginerror").innerHTML='User is not existing!';
+    	   document.getElementById("notlogin").style.display="";
+    	   document.getElementById('fullloginuser').style.display="none";
+    	   document.getElementById('loginuser').style.display="none";
+    	   document.getElementById('userlogin').style.display="none";   	   
+       }
+       if(@login.equals("passwordnot")){
+    	   document.getElementById("notloginerror").innerHTML='Password is wrong!';
+    	   document.getElementById("notlogin").style.display="";
+    	   document.getElementById('fullloginuser').style.display="none";
+    	   document.getElementById('loginuser').style.display="none";
+    	   document.getElementById('userlogin').style.display="none";  
+       }
      </script>
    </main>
     </section>
