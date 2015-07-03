@@ -21,7 +21,6 @@ public class Application {
     public static ImagesService images = ImagesServiceFactory.getImagesService();
 
     public static String index() {
-        //String url = "/searchTag";
         Query query = new Query("Item");
         FetchOptions options = FetchOptions.Builder.withLimit(25);
         List<com.google.appengine.api.datastore.Entity> entities = Application.datastore.prepare(query).asList(options);
@@ -105,17 +104,19 @@ public class Application {
 	}
      }
    
-     public static String searchTag (String tag) throws EntityNotFoundException {
+     public static String searchTag (HttpServletRequest request) throws EntityNotFoundException {
+	String tag = request.getParameter("tag");
 	System.out.println("SearchTag:" + tag);
+	// query all tag entities with name = tag
 	Filter tagFilter = new FilterPredicate("name",
                       FilterOperator.EQUAL,
                       tag);
 	Query query = new Query("Tag");
 	query.setFilter(tagFilter);   
-   
         FetchOptions options = FetchOptions.Builder.withLimit(25);
         List<com.google.appengine.api.datastore.Entity> entities = datastore.prepare(query).asList(options);
 	scala.collection.immutable.List<com.google.appengine.api.datastore.Entity> items = null;
+	// look for items with that tag
 	for (com.google.appengine.api.datastore.Entity fetchedTag : entities){
 		String idStr = fetchedTag.getProperty("itemId").toString();
 		Long id = Long.valueOf(idStr).longValue();
