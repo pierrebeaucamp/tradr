@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import scala.collection.immutable.*;
 import scala.collection.JavaConverters.*;
 import twirl.api.Html;
+//import Sorter;
 
 
 public class Application {
@@ -22,7 +23,6 @@ public class Application {
         Query query = new Query("Item");
         FetchOptions options = FetchOptions.Builder.withLimit(25);
         List<com.google.appengine.api.datastore.Entity> entities = datastore.prepare(query).asList(options);
-        
         scala.collection.immutable.List<com.google.appengine.api.datastore.Entity> items = scalaList(entities);
         return html.index.render(items).toString();
     }
@@ -76,6 +76,7 @@ public class Application {
         item.setProperty("purpose", request.getParameter("purpose"));
         item.setProperty("description", request.getParameter("description"));
         item.setProperty("img_url", images.getServingUrl(imageOptions));
+		item.setProperty("location", request.getParameter("location"));
 
         datastore.put(item);
         return "/item/" + Long.toString(item.getKey().getId());
