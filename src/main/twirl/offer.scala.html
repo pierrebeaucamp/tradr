@@ -24,7 +24,19 @@
                         </div>
                         <div class="featured-list__content g--third g--last">
                             <img src='@(offered.getProperty("img_url") + "=s300")' alt="@offered.getProperty("title")">
-                            <h4>@offered.getProperty("title")</h4>
+                            <select>
+                                @for(item <- items) {
+                                    @if(item.getKey().getId() == offered.getKey().getId()) {
+                                        <option value="@item.getKey().getId()" selected="selected">
+                                            @item.getProperty("title")
+                                        </option> 
+                                    } else {
+                                        <option value="@item.getKey().getId()">
+                                            @item.getProperty("title")
+                                        </option>
+                                    }
+                                }
+                            </select>
                              <ul>
                                 @if(offered.getProperty("condition") != "") {
                                     <li>Condition: @offered.getProperty("condition")</li>
