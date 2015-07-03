@@ -3,7 +3,7 @@
 @main("Upload") {
     <section>
         <main>
-            <form action="@url" method="post" enctype="multipart/form-data" id="form1">
+            <form action="@url" method="post" enctype="multipart/form-data" id="item-info-input-form">
                 <fieldset>
                     <legend>Add a new item</legend>
                     <div class="form-group"> 
@@ -79,7 +79,7 @@
 							function initialize() {
 								geocoder = new google.maps.Geocoder();
 								var mapOptions = {zoom: 8,
-									center: {lat: -34.397, lng: 150.644}};
+									center: {lat: 48.8, lng: 11.344}};
 									map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
 								google.maps.event.addListener(map, "click", function(event){
 									placeMarker(event.latLng);
@@ -118,7 +118,7 @@
 								var input = $("<input>")
 									.attr("type", "hidden")
 									.attr("name", "location").val(pos);
-									$('#form1').append($(input));
+									$('#item-info-input-form').append($(input));
 							}
 							
 
