@@ -1,10 +1,19 @@
 package com.appspot.tradr_seba;
 
-import com.google.appengine.api.blobstore.*;                                   
-import com.google.appengine.api.datastore.*;                                   
-import com.google.appengine.api.images.*; 
+import com.google.appengine.api.blobstore.*;
+import com.google.appengine.api.datastore.*;
+import com.google.appengine.api.images.*;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
-import scala.collection.immutable.*;                                           
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import scala.collection.immutable.*;
 import scala.collection.JavaConverters.*;
 import twirl.api.Html;
 //import Sorter;
@@ -39,7 +48,7 @@ public class Application {
         String description = item.getProperty("description").toString();
         String purpose = item.getProperty("purpose").toString();
 
-        return html.item.render(title, img_url, condition, age, purpose, description).toString();
+        return html.item.render(item).toString();
     }
 
     public static String upload() {
