@@ -79,7 +79,11 @@ object PlayController extends Controller {
     }
 
     def updateOffer = Action { request =>
-        Ok(Offer.update(request.req))
+        try {
+            Redirect(Offer.update(request.req))
+        } catch {
+            case e: Exception => InternalServerError
+        }
     }
 
     def upload = Action {
