@@ -2,7 +2,7 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
+
 GET     /                       controllers.PlayController.index
 GET     /add                    controllers.PlayController.upload
 GET     /item/:id               controllers.PlayController.item(id: Long)
@@ -13,6 +13,8 @@ GET     /alluser                controllers.PlayController.alluser
 GET     /changepassword         controllers.PlayController.changepassword
 GET     /findpassword           controllers.PlayController.findpassword
 GET     /user                   controllers.PlayController.user
+GET	/searchTag		controllers.PlayController.searchTag(tag: String?="")
+
 
 # Upload
 POST   /submit/item             controllers.PlayController.addItem

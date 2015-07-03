@@ -64,6 +64,13 @@ object PlayController extends Controller {
         } catch {
             case e: Exception => NotFound
         }
+  } 
+  def searchTag(tag: String) = Action {
+        try {
+            Ok(Application.searchTag(tag))
+        } catch {
+            case e: Exception => NotFound
+        } 
     } 
     
     def offer(id: Long) = Action {
