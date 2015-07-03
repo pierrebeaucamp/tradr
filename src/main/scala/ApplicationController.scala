@@ -67,7 +67,7 @@ object PlayController extends Controller {
   } 
   def searchTag(tag: String) = Action {
         try {
-            Ok(Application.searchTag(tag))
+            Ok(Item.searchTag(tag))
         } catch {
             case e: Exception => NotFound
         } 
