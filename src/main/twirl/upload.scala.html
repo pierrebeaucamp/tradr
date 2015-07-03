@@ -3,7 +3,7 @@
 @main("Upload") {
     <section>
         <main>
-            <form action="@url" method="post" enctype="multipart/form-data">
+            <form action="@url" method="post" enctype="multipart/form-data" id="item-info-input-form">
                 <fieldset>
                     <legend>Add a new item</legend>
                     <div class="form-group"> 
@@ -44,11 +44,93 @@
                         <label for="input-file" class="input-field-label">Image</label>
                         <input type="file" name="image" id="input-file" required class="input-field">
                     </div>
+					<div class="form-group">
+						<label for="input-location" class="input-field-label">Where is the object located?</label>
+						<input type="checkbox" name="location" id="input-location" value="1" checked onchange="valueChanged()">Use your current location</input>
+					</div>
+					<div class="form-group" id="address-form">
+						<label for="input-location" class="input-field-label" >Where can it be picked up?</label>
+						<input type="text" name="address" id="address" class="input-field">
+						<input type="button" name="find-address" id="find-address"  onclick="findAddress()">Find it!</input>
+						 <div id="map-canvas"   style="height:500px; width:600px"></div>
+						    
+					</div>
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+					<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+					<script type="text/javascript">
+							$("#address-form").hide();
+							var mapMarkers = [];
+							var marker;
+							var current_pos;
+							if(navigator.geolocation) {
+									navigator.geolocation.getCurrentPosition(function(position) {
+									current_pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+								});
+							}
+							
+							function valueChanged(){
+								if ($("#input-location").is(":checked"))
+									$("#address-form").hide();
+								else
+									$("#address-form").show();
+									initialize();
+							}
+						
+							function initialize() {
+								geocoder = new google.maps.Geocoder();
+								var mapOptions = {zoom: 8,
+									center: {lat: 48.8, lng: 11.344}};
+									map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+								google.maps.event.addListener(map, "click", function(event){
+									placeMarker(event.latLng);
+								});
+							}
+							
+							function placeMarker(location){
+											var oldMarker = mapMarkers.shift();
+											marker = new google.maps.Marker({
+												map: map,
+												position: location
+											});
+											mapMarkers.push(marker);
+											oldMarker.setMap(null);
+											oldMarker=null;
+							}
+							function findAddress(){
+								var address = $("#address").val();
+								geocoder.geocode({'address':address}, function(results, status){
+									if (status == google.maps.GeocoderStatus.OK){
+											map.setCenter(results[0].geometry.location);
+											placeMarker(results[0].geometry.location);
+			
+									} else {
+										alert("could not find your address : " + status);
+									}
+								});
+							}
+							function appendLocationData(){
+								var pos;
+								if ($("#input-location").is(":checked")){
+									pos = current_pos;
+								} else  {
+									pos = mapMarkers[0].position;
+								}			
+								var input = $("<input>")
+									.attr("type", "hidden")
+									.attr("name", "location").val(pos);
+									$('#item-info-input-form').append($(input));
+							}
+							
+
+						</script>
                     <div class="form-group">
-                        <input type="submit" value="Submit" class="button--primary" >
+                        <input type="submit" value="Submit" class="button--primary" onclick="appendLocationData()" >
                     </div>
                 </fieldset>
             </form>
         </main>
+
     </section>
+	
+
 }

@@ -21,7 +21,7 @@ public class RegisterAndLogin {
     private static ImagesService images = ImagesServiceFactory.getImagesService();
 
     public static String index(){
-    	return html.register.render("feng").toString();
+    	return html.register.render().toString();
     }
 
     public static String getUser(HttpServletRequest request) throws EntityNotFoundException {

@@ -3,18 +3,22 @@
 # ~~~~
 
 # Home page
-GET     /               controllers.PlayController.index
-GET     /upload         controllers.PlayController.upload
-GET     /item/:id       controllers.PlayController.item(id: Long)
-GET     /register       controllers.PlayController.register
-GET     /alluser        controllers.PlayController.alluser
-GET     /changepassword controllers.PlayController.changepassword
-GET     /findpassword   controllers.PlayController.findpassword
-GET     /user           controllers.PlayController.user
+GET     /                       controllers.PlayController.index
+GET     /add                    controllers.PlayController.upload
+GET     /item/:id               controllers.PlayController.item(id: Long)
+GET     /offers                 controllers.PlayController.offers
+GET     /offer/:id              controllers.PlayController.offer(id: Long)
+GET     /register               controllers.PlayController.register
+GET     /alluser                controllers.PlayController.alluser
+GET     /changepassword         controllers.PlayController.changepassword
+GET     /findpassword           controllers.PlayController.findpassword
+GET     /user                   controllers.PlayController.user
 
 # Upload
-POST   /submit          controllers.PlayController.addItem
-POST   /afterlogin      controllers.PlayController.afterlogin
-POST   /afterregister   controllers.PlayController.afterregister
-POST   /afterchange     controllers.PlayController.afterchange
+POST   /submit/item             controllers.PlayController.addItem
+POST   /submit/offer            controllers.PlayController.addOffer
+POST   /submit/update           controllers.PlayController.updateOffer
+POST   /afterlogin              controllers.PlayController.afterlogin
+POST   /afterregister           controllers.PlayController.afterregister
+POST   /afterchange             controllers.PlayController.afterchange
 POST   /afterrequestpassword    controllers.PlayController.afterrequestpassword

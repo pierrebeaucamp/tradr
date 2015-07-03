@@ -1,0 +1,23 @@
+@(offers: List[com.google.appengine.api.datastore.Entity])
+
+@main("Tradr - Offers") {
+    <section class="container-medium">
+        @if(offers.length == 0) {
+            <h3>There are no offers at the moment...</h3>
+        }
+
+        <table>
+            <tbody>
+                @for(offer <- offers) {
+                    <tr>
+                        <td data-th="Offer" style="text-align: center;"> 
+                            <a href="/offer/@offer.getKey().getId()">
+                                Offer to trade @offer.getProperty("requested_name") with @offer.getProperty("offered_name")
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+}
