@@ -37,7 +37,8 @@ public class Item {
         }
 
         String tags = request.getParameter("tags");
-        storeTags(Long.toString(item.getKey().getId()),tags);
+        //storeTags(Long.toString(item.getKey().getId()),tags);
+        storeTags(item.getKey().getId(),tags);
         
         item.setProperty("title", request.getParameter("title"));
         item.setProperty("condition", request.getParameter("condition"));
@@ -74,7 +75,6 @@ public class Item {
      public static String searchTag (HttpServletRequest request) throws EntityNotFoundException {
         String tag = request.getParameter("tag");
         System.out.println("SearchTag:" + tag);
-	DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         // query all tag entities with name = tag
         Filter tagFilter = new FilterPredicate("name",
                       FilterOperator.EQUAL,
@@ -82,26 +82,27 @@ public class Item {
         Query query = new Query("Tag");
         query.setFilter(tagFilter);
         FetchOptions options = FetchOptions.Builder.withLimit(25);
-        List<com.google.appengine.api.datastore.Entity> entities = datastore.prepare(query).asList(options);
+        List<com.google.appengine.api.datastore.Entity> entities = Application.datastore.prepare(query).asList(options);
         scala.collection.immutable.List<com.google.appengine.api.datastore.Entity> items = null;
         // look for items with that tag
         for (com.google.appengine.api.datastore.Entity fetchedTag : entities){
                 String idStr = fetchedTag.getProperty("itemId").toString();
                 Long id = Long.valueOf(idStr).longValue();
-                try {
+                //Long id = Long.valueOf(fetchedTag.getProperty("itemId")).longValue();
+//                try {
                         System.out.println("Item ID:"+id);
-                        Entity item = datastore.get(KeyFactory.createKey("Item",id));
+                        Entity item = Application.datastore.get(KeyFactory.createKey("Item",id));
                         items.$colon$colon((com.google.appengine.api.datastore.Entity) item);
-                }catch (Exception e){
-                        System.out.println("Tag:" + fetchedTag.getProperty("name").toString() + " - NO ITEM");                                
-                }
+//                }catch (Exception e){
+//                        System.out.println("Tag:" + fetchedTag.getProperty("name").toString() + " - NO ITEM");                                
+//                }
         }
         //System.out.println("Finished SearchTag:"+items.size());
         return html.search.render(items).toString();
 
    }
 
-    private static void storeTags(String id, String tags) {
+    private static void storeTags(Long id, String tags) {
         String[] splitedTags = tags.split("\\s+");
         for(String strTag: splitedTags){
             Entity tag = new Entity("Tag");
