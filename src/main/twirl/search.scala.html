@@ -6,15 +6,12 @@
 			<input type="text" name="tag" id="tag" required autofocus class="input-field">
 			<input type="submit" value="Search" class="button--primary">
 	</form>
-        @if(items.length == 0) { 
-            <h3>There are no items to trade right now</h3>
-        } 
-
+	@if(items != null){
         <ul class="guides-list container-medium">
             @for(item <- items) {    
-                @if(items.indexOf(item) % 2 == 0) { 
+                @if(items.indexOf(item) % 2 == 0) {            
                     <li class="guides-list__item g--half">
-                }  else {
+                } else {
                     <li class="guides-list__item g--half g--last"> 
                 }
                     <a href="/item/@item.getKey().getId()">
@@ -30,5 +27,8 @@
                 </li>
             }
         </ul>
+	} else {
+		<p> No Items! </p>
+	}
     </section>
 }
