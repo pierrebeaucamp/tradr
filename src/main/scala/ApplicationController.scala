@@ -87,7 +87,7 @@ object PlayController extends Controller {
     }
     def searchTag = Action { request => 
         try {
-            Ok(Application.searchTag(request.req))
+            Ok(Item.searchTag(request.req))
         } catch {
             case e: Exception => InternalServerError
         }
