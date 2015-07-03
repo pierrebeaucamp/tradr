@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import scala.collection.immutable.*;
 import scala.collection.JavaConverters.*;
@@ -21,7 +22,9 @@ public class UserManagement {
     private static ImagesService images = ImagesServiceFactory.getImagesService();
 
     public static String index(){
-    	return html.register.render().toString();
+    	//HttpSession session =request.getSession();
+    	//String UN = session.getAttribute("username").toString();
+    	return html.register.render("","","").toString();
     }
     public static String change(){
     	return html.changepassword.render("initail").toString();
@@ -34,22 +37,25 @@ public class UserManagement {
     }
 
     public static String getUser(HttpServletRequest request) throws EntityNotFoundException {
+  	  //HttpSession session = request.getSession();
+  	 // session = null;
     	
 	String loginusername = request.getParameter("LoginUserName").toString();
 	String loginpassword = request.getParameter("LoginPassword").toString();
-    Entity user = datastore.get(KeyFactory.createKey("User", loginusername));
+	Entity user = null;
+    try {user = datastore.get(KeyFactory.createKey("User", loginusername));}
+    catch (EntityNotFoundException e) {return html.user.render("usernot").toString();}
 
     String username = user.getProperty("username").toString();
     String password = user.getProperty("password").toString();
     
     if(loginpassword.equals(password)){
-       // HttpSession session = request.getSession();
-       // session.setAttribute("Uname", username);
+    	//session.setAttribute("username",username);
         return html.user.render("yes").toString();
     }
 
     else {
-    	return html.user.render("not").toString();
+    	return html.user.render("passwordnot").toString();
     }
        
 }
@@ -57,29 +63,24 @@ public class UserManagement {
     
     
    public static String addUser(HttpServletRequest request) {
-       // Map<String, List<BlobKey>> blobs = blobstore.getUploads(request);
-       // List<BlobKey> blobKeys = blobs.get("image");
-
-       // if (blobKeys == null || blobKeys.isEmpty()) {
-        //    return "/";
-        //}
-              
+	  //HttpSession session = request.getSession();
+	  //String UN = session.getAttribute("username").toString();
+	   
         Entity user = new Entity("User",request.getParameter("username").toString());
-       // ServingUrlOptions imageOptions = ServingUrlOptions.Builder.withBlobKey(blobKeys.get(0)).secureUrl(true); 
 
         Date dateEntered = new Date();
         
         String username = request.getParameter("username").toString();
         String password = request.getParameter("password").toString();
         String email = request.getParameter("email").toString();
+        String repeatpassword = request.getParameter("repeatpassword").toString();
         
         if (!username.substring(0,1).matches("[a-zA-Z]"))
-           return ("fail");// JOptionPane.showMessageDialog(frame,"fail"); //return("fail");
-        if (password.length()>12||password.length()<6)
-        	return ("also fail");
-     /*   isValidEmailAddress Em = new isValidEmailAddress(email);
-        if(!Em)
-        	return("fail");*/
+           return html.register.render("userfail","","").toString();
+        if (password.length()>12||password.length()<6)      	
+        	return html.register.render("","passwordfail","").toString();
+        if( ! password.equals(repeatpassword))
+        	return html.register.render("","","passwordnotthesame").toString();
                 
         user.setProperty("username", username);
         user.setProperty("sex", request.getParameter("sex"));
@@ -87,7 +88,7 @@ public class UserManagement {
         user.setProperty("password", password);
         user.setProperty("email", email);
         user.setProperty("phonenumber", request.getParameter("PhoneNo"));
-       // user.setProperty("img_url", images.getServingUrl(imageOptions));
+
 
         datastore.put(user);
         String welcome = "Welcome!";
@@ -95,12 +96,6 @@ public class UserManagement {
         String enjoy = "Enjoy your tradr!";
         return html.afterregister.render(welcome,newaccount,enjoy).toString(); 
     }
- /*  public boolean isValidEmailAddress(String email){
-	   String ePattern ="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
-	   jave.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
-	   java.util.regexMatcher m = p.matcher(email);
-	    return m.matches();
-   }*/
    
    public static String showuser () {
 		Query query = new Query("User");
@@ -116,9 +111,9 @@ public class UserManagement {
 	  String usernameinchange = request.getParameter("usernameinchange").toString();
 	  String oldpassword = request.getParameter("oldpassword").toString();
 	  String newpassword = request.getParameter("newpassword").toString();
-	  Entity user = datastore.get(KeyFactory.createKey("User", usernameinchange));
-	  //try{ Entity user = datastore.get(KeyFactory.createKey("User", usernameinchange));}
-	  //catch (EntityNotFoundException e) { return html.changepassword.render("userfail").toString(); }
+	  Entity user = null;
+	  try{ user = datastore.get(KeyFactory.createKey("User", usernameinchange));}
+	  catch (EntityNotFoundException e) { return html.changepassword.render("userfail").toString(); }
 	  String username = user.getProperty("username").toString();
 	  String password = user.getProperty("password").toString();	
 
