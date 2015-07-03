@@ -13,7 +13,7 @@ GET     /alluser                controllers.PlayController.alluser
 GET     /changepassword         controllers.PlayController.changepassword
 GET     /findpassword           controllers.PlayController.findpassword
 GET     /user                   controllers.PlayController.user
-GET	/searchTag		controllers.PlayController.searchTag(tag: String?="")
+GET	/searchTag		controllers.PlayController.searchTag(tag: String ?= "")
 
 
 # Upload

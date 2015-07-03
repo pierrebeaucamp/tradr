@@ -106,12 +106,10 @@ public class Application {
      }
    
      public static String searchTag (String tag) throws EntityNotFoundException {
-        String url = "/searchTag";
 	System.out.println("SearchTag:" + tag);
-	String responseHTML;
 	Filter tagFilter = new FilterPredicate("name",
                       FilterOperator.EQUAL,
-                      "musica");
+                      tag);
 	Query query = new Query("Tag");
 	query.setFilter(tagFilter);   
    
