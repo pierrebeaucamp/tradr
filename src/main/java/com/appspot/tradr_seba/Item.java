@@ -47,7 +47,7 @@ public class Item {
         item.setProperty("purpose", request.getParameter("purpose"));
         item.setProperty("description", request.getParameter("description"));
         item.setProperty("img_url", Application.images.getServingUrl(imageOptions));
-        item.setProperty("location", request.getParameter("location"));
+        item.setProperty("location", request.getParameter("location-data"));
 
         Application.datastore.put(item);
         return "/item/" + Long.toString(item.getKey().getId());
