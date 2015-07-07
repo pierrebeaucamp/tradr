@@ -68,13 +68,6 @@ object PlayController extends Controller {
             case e: Exception => NotFound
         }
   } 
-  def searchTag(tag: String) = Action {
-        try {
-            Ok(Application.searchTag(tag))
-        } catch {
-            case e: Exception => NotFound
-        } 
-    } 
     
     def offer(id: Long) = Action {
         try {
@@ -91,6 +84,13 @@ object PlayController extends Controller {
     def updateOffer = Action { request =>
         try {
             Redirect(Offer.update(request.req))
+        } catch {
+            case e: Exception => InternalServerError
+        }
+    }
+    def searchTag = Action { request => 
+        try {
+            Ok(Item.searchTag(request.req))
         } catch {
             case e: Exception => InternalServerError
         }

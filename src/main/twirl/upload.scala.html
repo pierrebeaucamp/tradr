@@ -105,6 +105,7 @@
 								geocoder.geocode({'address':address}, function(results, status){
 									if (status == google.maps.GeocoderStatus.OK){
 											map.setCenter(results[0].geometry.location);
+											map.setZoom(16);
 											placeMarker(results[0].geometry.location);
 			
 									} else {
@@ -121,7 +122,7 @@
 								}			
 								var input = $("<input>")
 									.attr("type", "hidden")
-									.attr("name", "location").val(pos);
+									.attr("name", "location-data").val(pos);
 									$('#item-info-input-form').append($(input));
 							}
 							
