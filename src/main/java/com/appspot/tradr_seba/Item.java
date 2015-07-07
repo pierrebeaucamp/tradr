@@ -16,7 +16,7 @@ import twirl.api.Html;
 
 
 public class Item {
-    
+	
     public static String add(HttpServletRequest request) {
         Map<String, List<BlobKey>> blobs = Application.blobstore.getUploads(request);
         List<BlobKey> blobKeys = blobs.get("image");
@@ -120,4 +120,16 @@ public class Item {
             //}	
 	}
     }
+	
+		public static String sortByLocation(HttpServletRequest request) {
+			Query query = new Query("Item");
+			FetchOptions options = FetchOptions.Builder.withLimit(25);
+			List<com.google.appengine.api.datastore.Entity> entities = Application.datastore.prepare(query).asList(options);
+			String current_location = request.getParameter("location-data");
+			
+			Sorter sorter = new Sorter(current_location);
+			scala.collection.immutable.List<com.google.appengine.api.datastore.Entity> sortedItems = Application.scalaList(sorter.sortByDistance(entities));
+			
+			return html.search.render(sortedItems).toString();
+	}
 }
