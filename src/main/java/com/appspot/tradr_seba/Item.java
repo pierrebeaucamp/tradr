@@ -8,6 +8,7 @@ import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.images.*;
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import scala.collection.immutable.*; 
 import javax.servlet.http.HttpServletRequest;
@@ -36,9 +37,6 @@ public class Item {
             age = "";
         }
 
-        String tags = request.getParameter("tags");
-        //storeTags(Long.toString(item.getKey().getId()),tags);
-        storeTags(item.getKey().getId(),tags);
         
         item.setProperty("title", request.getParameter("title"));
         item.setProperty("condition", request.getParameter("condition"));
@@ -49,7 +47,12 @@ public class Item {
         item.setProperty("img_url", Application.images.getServingUrl(imageOptions));
         item.setProperty("location", request.getParameter("location"));
 
-        Application.datastore.put(item);
+        Key itemKey = Application.datastore.put(item);
+
+        String tags = request.getParameter("tags");
+        storeTags(Long.toString(item.getKey().getId()),tags);
+        //storeTags(itemKey.toString(),tags);
+
         return "/item/" + Long.toString(item.getKey().getId());
     }
 
@@ -69,6 +72,7 @@ public class Item {
 
     public static String get(long id) throws EntityNotFoundException {
         Entity item = Application.datastore.get(KeyFactory.createKey("Item", id));
+        System.out.println("Item ID:"+id);
         return html.item.render(item).toString();
     }
 
@@ -83,32 +87,37 @@ public class Item {
         query.setFilter(tagFilter);
         FetchOptions options = FetchOptions.Builder.withLimit(25);
         List<com.google.appengine.api.datastore.Entity> entities = Application.datastore.prepare(query).asList(options);
-        scala.collection.immutable.List<com.google.appengine.api.datastore.Entity> items = null;
+        List<com.google.appengine.api.datastore.Entity> items = new ArrayList<com.google.appengine.api.datastore.Entity>();
         // look for items with that tag
         for (com.google.appengine.api.datastore.Entity fetchedTag : entities){
-                String idStr = fetchedTag.getProperty("itemId").toString();
+                String idStr = fetchedTag.getProperty("item_idname").toString();
                 Long id = Long.valueOf(idStr).longValue();
-                //Long id = Long.valueOf(fetchedTag.getProperty("itemId")).longValue();
-//                try {
-                        System.out.println("Item ID:"+id);
-                        Entity item = Application.datastore.get(KeyFactory.createKey("Item",id));
-                        items.$colon$colon((com.google.appengine.api.datastore.Entity) item);
-//                }catch (Exception e){
-//                        System.out.println("Tag:" + fetchedTag.getProperty("name").toString() + " - NO ITEM");                                
-//                }
-        }
-        //System.out.println("Finished SearchTag:"+items.size());
-        return html.search.render(items).toString();
+                System.out.println("Item ID:"+id);
+                com.google.appengine.api.datastore.Entity item = null;
+		try {
+                        item = Application.datastore.get(KeyFactory.createKey("Item",id));
+                }catch (Exception e){
+                        System.out.println("Tag:" + fetchedTag.getProperty("name").toString() + " - NO ITEM");                                
+                }
+        	System.out.println("Item found:"+item.getProperty("title").toString());
+        	items.add(item);
+	}
+
+        System.out.println("Finished SearchTag:"+items.size());
+        scala.collection.immutable.List<com.google.appengine.api.datastore.Entity> scalaItems = Application.scalaList(items);	
+        return html.search.render(scalaItems).toString();
 
    }
 
-    private static void storeTags(Long id, String tags) {
+    private static void storeTags(String id, String tags) {
         String[] splitedTags = tags.split("\\s+");
         for(String strTag: splitedTags){
-            Entity tag = new Entity("Tag");
-            tag.setProperty("name",strTag);
-            tag.setProperty("itemId",id);  
-            Application.datastore.put(tag);
-        }
+	    //if ((strTag != "") || (strTag != " ")){
+            	Entity tag = new Entity("Tag");
+            	tag.setProperty("name",strTag);
+            	tag.setProperty("item_idname",id);  
+            	Application.datastore.put(tag);
+            //}	
+	}
     }
 }
