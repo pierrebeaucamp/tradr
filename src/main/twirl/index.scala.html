@@ -6,6 +6,9 @@
 			<input type="text" name="tag" id="tag" required autofocus class="input-field">
 			<input type="submit" value="Search" class="button--primary">
 	</form>
+	<form action="/sortByLocation" method="get" id="sort-form">
+			<input type="submit" value="Sort By Distance" class="button--primary" onclick="appendLocationData()">
+	</form>
         @if(items.length == 0) { 
             <h3>There are no items to trade right now</h3>
         } 
@@ -30,5 +33,24 @@
                 </li>
             }
         </ul>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+			<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+			<script type="text/javascript">
+				var current_pos;
+				if(navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(function(position) {
+					current_pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+							var pst = position;
+						});
+					}
+				
+				function appendLocationData(){
+					var pos = current_pos;
+					var input = $("<input>")
+						.attr("type", "hidden")
+						.attr("name", "location-data").val(pos);
+						$('#sort-form').append($(input));
+				}
+			</script>
     </section>
 }
