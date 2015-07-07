@@ -1,14 +1,23 @@
-@(username:String)(password:String)(repeatpassword:String)
+@(login:String)(username:String)(password:String)(repeatpassword:String)(email:String)
 
 @main("Register") {
 
    <div id="fullfailregister" style="width:100%;height:100%;position:absolute;z-index:1;top:-100px;opacity:0.4;background-color:white;">
    </div>
+       <div id="userloginregister" class="userlogin">
+     <ul>
+       <li class="usernave" id="userreqister">welcome @login</li>
+       <li class="usernav"><a href="/changepassword">change password</a></li>
+       <li class="usernav">service</li>
+       <li class="usernav"><a href="/logout">logout</a></li>
+     </ul>
+    </div>
  
    <div id="failregister" style="height:200px;width:400px;position:absolute;border:solid 1px #123456; z-index:2;overflow:auto;top:210px;left:380px;background-color:white;">
               <label id="error1messageregister" style="color:#3367D6;font-size:20px;top:40px;left:40px;position:relative;"></label>
               <label id="error2messageregister" style="color:#3367D6;font-size:20px;top:40px;left:40px;position:relative;"></label>
               <label id="error3messageregister" style="color:#3367D6;font-size:20px;top:40px;left:40px;position:relative;"></label>
+              <label id="error4messageregister" style="color:#3367D6;font-size:20px;top:40px;left:40px;position:relative;"></label>
               <div style="top:60px;left:40px;position:relative;width:300px;">
               <label style="color:#3367D6;font-size:20px;"><a href="/register" style="text-decoration:none">Retry!</a></label>
               </div>
@@ -70,6 +79,17 @@
                         document.getElementById("fullfailregister").style.display="";
                         document.getElementById("failregister").style.display="";
                         document.getElementById("error3messageregister").innerHTML="You should enter the same passwords!";
+                    }
+                    if(@email.equals("emailfail")){
+                        document.getElementById("fullfailregister").style.display="";
+                        document.getElementById("failregister").style.display="";
+                        document.getElementById("error4messageregister").innerHTML="You should enter a right emailaddress!";
+                    }
+                    if(@username.equals("existing")){
+                    	document.getElementById("fullfailregister").style.display="";
+                        document.getElementById("failregister").style.display=""; 
+                        document.getElementById("error1messageregister").innerHTML='Username is alreading exsiting!';
+                   
                     }
                     	 
                     </script>

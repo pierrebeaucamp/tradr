@@ -1,11 +1,13 @@
-@(login:String)
+@(login:String)(username:String)
 
 @main("User Page"){
 <div id="fullloginuser" class="fulllogin"></div>
     <div id="userlogin" class="userlogin">
      <ul>
+       <li class="usernave" id="user">welcome @username</li>
        <li class="usernav"><a href="/changepassword">change password</a></li>
        <li class="usernav">service</li>
+       <li class="usernav"><a href="/logout">logout</a></li>
      </ul>
     </div>
  <section>
