@@ -1,8 +1,5 @@
-<<<<<<< HEAD
+
 @(login:String)(username:String)(password:String)(repeatpassword:String)(email:String)
-=======
-@(username:String , password:String ,repeatpassword:String)
->>>>>>> e11588ed1e1a8da7794541ad5659e065d8ee56db
 
 @main("Register") {
 
@@ -68,6 +65,11 @@
                     <script type="text/javascript">
                     document.getElementById("fullfailregister").style.display="none";
                     document.getElementById("failregister").style.display="none";
+                    document.getELementById("userloginregister").style.display="none";
+                    if(@login !=null){
+                    	document.getElementById("userloginregister").style.display="";
+                    }
+                    	
 
                     if(@username.equals("userfail")){
                         document.getElementById("fullfailregister").style.display="";

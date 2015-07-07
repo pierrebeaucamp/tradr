@@ -52,8 +52,6 @@ public class UserManagement {
     }
 
     public static String getUser(HttpServletRequest request) throws EntityNotFoundException {
-  	  //HttpSession session = request.getSession();
-  	 // session = null;
     	
 	String loginusername = request.getParameter("LoginUserName").toString();
 	String loginpassword = request.getParameter("LoginPassword").toString();
@@ -77,7 +75,7 @@ public class UserManagement {
 }
     public static String Logout(HttpServletRequest request){
     	HttpSession session = request.getSession();
-    	session.removeAttribute("username");
+    	session.removeAttribute("username");   	
     	return html.user.render("not","").toString();
     }
 
@@ -123,7 +121,7 @@ public class UserManagement {
         String welcome = "Welcome!";
         String newaccount = "You have successfully created a new account!";
         String enjoy = "Enjoy your tradr!";
-        return html.afterregister.render(welcome,newaccount,enjoy).toString(); 
+        return html.afterregister.render(US,welcome,newaccount,enjoy).toString(); 
          }
         return html.register.render(US,"existing","","","").toString();
     }
@@ -156,7 +154,7 @@ public class UserManagement {
 		  else{
 			  user.setProperty("password",newpassword);
 			  datastore.put(user);
-			  return html.afterchange.render("","You have changed your password!","").toString();
+			  return html.afterchange.render(US,"","You have changed your password!","").toString();
 		  }
    }
    
@@ -168,6 +166,6 @@ public class UserManagement {
 	   String emailinback = request.getParameter("emailinback").toString();	   
 	   Entity user = datastore.get(KeyFactory.createKey("User", usernameinback));
 	   String password = user.getProperty("password").toString();
-	   return html.afterrequestpassword.render("","Your Password is "+password+" !","").toString();
+	   return html.afterrequestpassword.render(US,"","Your Password is "+password+" !","").toString();
    }
 }
