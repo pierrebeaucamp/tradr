@@ -1,10 +1,10 @@
 @(username:String)(line1:String)(line2:String)(line3:String)
 
 @main("After Change Password"){
-   </div>
+
        <div id="userloginafterchange" class="userlogin">
      <ul>
-       <li class="usernave" id="userafterchange">welcome @username</li>
+       <li class="usernav">welcome @username</li>
        <li class="usernav"><a href="/changepassword">change password</a></li>
        <li class="usernav">service</li>
        <li class="usernav"><a href="/logout">logout</a></li>
@@ -15,13 +15,13 @@
         <main>
             <form>
                 <fieldset>
-                      <div class=""form-group"">
+                      <div class="form-group">
                         <label id="changeline1"  class="after" style="color:#4285f4;font-size:28px;padding-top:20px;padding-left:150px;top:70px;position:relative;">@line1</label>
                       </div> 
-                     <div class=""form-group"">
+                     <div class="form-group">
                         <label id="changeline2" class="after" style="color:#4285f4;font-size:28px;padding-top:20px;top:70px;padding-left:150px;position:relative;">@line2</label>
                      </div>
-                     <div class=""form-group"">
+                     <div class="form-group">
                         <label id="changeline3" class="after" style="color:#4285f4;font-size:28px;padding-top:20px;top:70px;padding-left:150px;position:relative;">@line3</label>
                       </div>  
                      <div class="form-group">
@@ -30,9 +30,9 @@
                         </label>
                       </div>                 
                     <script type="text/javascript">
-                    document.getELementById("userloginafterchange").style.display="none";
-                    if(@username !=null){
-                    	document.getElementById("userloginafterchange").style.display="";
+                    document.getElementById('userloginafterchange').style.display="none";
+                    if(! @username.equals("")){
+                    	document.getElementById('userloginafterchange').style.display="";
                     }
                     </script>
                 </fieldset>

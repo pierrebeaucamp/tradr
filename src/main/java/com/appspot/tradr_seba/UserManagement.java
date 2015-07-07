@@ -28,25 +28,40 @@ public class UserManagement {
 	
 	
     public static String index(HttpServletRequest request){
-    	HttpSession session =request.getSession();
+    	HttpSession session =request.getSession(false);
+        if(session !=null){
     	String username = session.getAttribute("username").toString();
     	return html.register.render(username,"","","","").toString();
+        }
+        else
+        return html.register.render("","","","","").toString();
     }
     public static String change(HttpServletRequest request){
-    	HttpSession session =request.getSession();
+    	HttpSession session =request.getSession(false);
+        if (session !=null){
     	String username = session.getAttribute("username").toString();
     	return html.changepassword.render(username,"initail").toString();
+        }
+        else
+        	return html.changepassword.render("","initial").toString();
+
     }
     public static String findpasswordback(HttpServletRequest request){
-    	HttpSession session =request.getSession();
+    	HttpSession session = request.getSession(false);
+        if(session !=null){
     	String username = session.getAttribute("username").toString();
     	return html.findpassword.render(username).toString();
+        }
+        else
+        	return html.findpassword.render("").toString();
+
     }
-    public static String user(HttpServletRequest request) {
-    	HttpSession session = request.getSession();
-    	String username = session.getAttribute("username").toString();
-    	if (username !=null)
+    public static String user(HttpServletRequest request){
+    	HttpSession session = request.getSession(false);
+    	if(session !=null){
+            String username = session.getAttribute("username").toString();
     		return html.user.render("yes",username).toString();
+    	}
     	else
     	    return html.user.render("not","").toString();
     }
@@ -74,16 +89,19 @@ public class UserManagement {
        
 }
     public static String Logout(HttpServletRequest request){
-    	HttpSession session = request.getSession();
-    	session.removeAttribute("username");   	
+    	HttpSession session = request.getSession(false);
+    	if(session !=null)
+    		session.invalidate();
     	return html.user.render("not","").toString();
     }
 
     
     
    public static String addUser(HttpServletRequest request){
-   	HttpSession session =request.getSession();
-   	String US = session.getAttribute("username").toString();
+   	HttpSession session =request.getSession(false);
+   	String US ="";
+   	if(session !=null){
+       US = session.getAttribute("username").toString();}
 	   
         Entity user = new Entity("User",request.getParameter("username").toString());
 
@@ -123,6 +141,7 @@ public class UserManagement {
         String enjoy = "Enjoy your tradr!";
         return html.afterregister.render(US,welcome,newaccount,enjoy).toString(); 
          }
+        
         return html.register.render(US,"existing","","","").toString();
     }
    
@@ -136,8 +155,10 @@ public class UserManagement {
    }
    
    public static String ChangePassword(HttpServletRequest request)  throws EntityNotFoundException {
-   	HttpSession session =request.getSession();
-   	String US = session.getAttribute("username").toString();
+   	HttpSession session =request.getSession(false);
+   	String US ="";
+   	if(session !=null)
+        US = session.getAttribute("username").toString();
 	   	   
 	  String usernameinchange = request.getParameter("usernameinchange").toString();
 	  String oldpassword = request.getParameter("oldpassword").toString();
@@ -159,8 +180,10 @@ public class UserManagement {
    }
    
    public static String FindPassword(HttpServletRequest request) throws EntityNotFoundException{
-   	HttpSession session =request.getSession();
-   	String US = session.getAttribute("username").toString();
+   	HttpSession session =request.getSession(false);
+   	String US= "";
+   	if(session !=null)
+     US = session.getAttribute("username").toString();
 	   
 	   String usernameinback = request.getParameter("usernameinback").toString();
 	   String emailinback = request.getParameter("emailinback").toString();	   

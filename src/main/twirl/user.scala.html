@@ -1,10 +1,11 @@
 @(login:String)(username:String)
 
 @main("User Page"){
+
 <div id="fullloginuser" class="fulllogin"></div>
     <div id="userlogin" class="userlogin">
      <ul>
-       <li class="usernave" id="user">welcome @username</li>
+       <li class="usernav">welcome @username</li>
        <li class="usernav"><a href="/changepassword">change password</a></li>
        <li class="usernav">service</li>
        <li class="usernav"><a href="/logout">logout</a></li>
@@ -23,9 +24,8 @@
     </div>
     <form action="/afterlogin" method="post">  
    <div id="loginuser" class="login">
-     <div id="loginheaderuser" "class="loginheader" style="width:330px;float:left;left:20px;position:relative;top:20px;bottom:20px;">
-      <legend id ="loginnameuser" style="position:relative;float:left;">User Login<Label id="logincanceluser" onclick="clicklogin()" style="position:relative;float:left; left:200px;color:#3367D6;">Cancel</Label></legend>
-      
+     <div id="loginheaderuser" class="loginheader" style="width:330px;float:left;left:20px;position:relative;top:20px;bottom:20px;">
+      <legend id ="loginnameuser" style="position:relative;float:left;">User Login<Label id="logincanceluser" onclick="clicklogin()" style="position:relative;float:left; left:200px;color:#3367D6;">Cancel</Label></legend>     
       </div>
       <div class="loginbody" style="width:300px;float:left;left:20px;position:relative;top:15px;">
       <label class="loginparametername" style="float:left;padding-top:20px;padding-right:40px;position:relative;left:20px;"> User Name :</label>
@@ -46,34 +46,40 @@
   </div>
    
      <script type="text/javascript">
-        document.getElementById("notlogin").style.display="none";
-        document.getElementById("loginright").style.display="none";
+     
+        document.getElementById('notlogin').style.display="none";
+        document.getElementById('loginright').style.display="none";
+        document.getElementById('userlogin').style.display="none";
+        document.getElementById('loginuser').style.display="none";
+        document.getElementById('fullloginuser').style.display="none";
+        
+        if(! @username.equals(""))
+        	document.getElementById('userlogin').style.display="";        
+        
        if(@login.equals("not")){
     	   document.getElementById('fullloginuser').style.display="";
     	   document.getElementById('loginuser').style.display="";
-    	   document.getElementById('userlogin').style.display="none";
        }
-       if(@login.equals("yes")){
+       else if(@login.equals("yes")){
     	   document.getElementById('fullloginuser').style.display="none";
     	   document.getElementById('loginuser').style.display="none";
-    	   document.getElementById('userlogin').style.display="";
     	   document.getElementById('loginright').style.display="";
        } 
-       if(@login.equals("usernot")){
-    	   document.getElementById("notloginerror").innerHTML='User is not existing!';
-    	   document.getElementById("notlogin").style.display="";
+       else if(@login.equals("usernot")){
+    	   document.getElementById('notloginerror').innerHTML='User is not existing!';
+    	   document.getElementById('notlogin').style.display="";
+    	   document.getElementById('fullloginuser').style.display="none";
+    	   document.getElementById('loginuser').style.display="none"; 	   
+       }
+       else if(@login.equals("passwordnot")){
+    	   document.getElementById('notloginerror').innerHTML='Password is wrong!';
+    	   document.getElementById('notlogin').style.display="";
     	   document.getElementById('fullloginuser').style.display="none";
     	   document.getElementById('loginuser').style.display="none";
-    	   document.getElementById('userlogin').style.display="none";   	   
-       }
-       if(@login.equals("passwordnot")){
-    	   document.getElementById("notloginerror").innerHTML='Password is wrong!';
-    	   document.getElementById("notlogin").style.display="";
-    	   document.getElementById('fullloginuser').style.display="none";
-    	   document.getElementById('loginuser').style.display="none";
-    	   document.getElementById('userlogin').style.display="none";  
-       }
-     </script>
+       }       
+       
+       </script>
+       
    </main>
     </section>
 }

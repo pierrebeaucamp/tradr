@@ -7,7 +7,7 @@
    </div>
        <div id="userloginregister" class="userlogin">
      <ul>
-       <li class="usernave" id="userreqister">welcome @login</li>
+       <li class="usernav">welcome @login</li>
        <li class="usernav"><a href="/changepassword">change password</a></li>
        <li class="usernav">service</li>
        <li class="usernav"><a href="/logout">logout</a></li>
@@ -63,11 +63,12 @@
                     </div>
                     
                     <script type="text/javascript">
-                    document.getElementById("fullfailregister").style.display="none";
-                    document.getElementById("failregister").style.display="none";
-                    document.getELementById("userloginregister").style.display="none";
-                    if(@login !=null){
-                    	document.getElementById("userloginregister").style.display="";
+                    document.getElementById('fullfailregister').style.display="none";
+                    document.getElementById('failregister').style.display="none";
+                    document.getElementById('userloginregister').style.display="none";
+                    
+                    if(! @login.equals("")){
+                    	document.getElementById('userloginregister').style.display="";
                     }
                     	
 
