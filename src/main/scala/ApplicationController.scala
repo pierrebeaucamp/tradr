@@ -22,8 +22,8 @@ object PlayController extends Controller {
         Ok(Application.index())
     }
     
-    def register = Action {
-        Ok(UserManagement.index())
+    def register = Action { request =>
+        Ok(UserManagement.index(request.req))
     }
        
     def afterregister = Action { request =>
@@ -42,21 +42,24 @@ object PlayController extends Controller {
         Ok(UserManagement.ChangePassword(request.req))
     }
 
-    def changepassword = Action {
-        Ok(UserManagement.change())
+    def changepassword = Action {request =>
+        Ok(UserManagement.change(request.req))
     }
 
-    def findpassword = Action{
-        Ok(UserManagement.findpasswordback())
+    def findpassword = Action{ request =>
+        Ok(UserManagement.findpasswordback(request.req))
     }
     
     def afterrequestpassword = Action { request =>
        Ok(UserManagement.FindPassword(request.req))
     }
        
-    def user = Action{
-       Ok(UserManagement.user())
+    def user = Action{ request =>
+       Ok(UserManagement.user(request.req))
     }
+    def logout = Action{ request =>
+       Ok(UserManagement.Logout(request.req))
+       }
     
     def item(id: Long) = Action {
         try {

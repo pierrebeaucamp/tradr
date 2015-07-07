@@ -3,4 +3,5 @@
     <application>tradr-seba</application>
     <version>0-2-0</version>
     <threadsafe>true</threadsafe>
+    <sessions-enabled>true</sessions-enabled>
 </appengine-web-app>
