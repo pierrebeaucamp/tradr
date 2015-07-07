@@ -7,11 +7,6 @@ import com.google.appengine.api.images.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.*;
-
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.naming.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -91,8 +86,8 @@ public class UserManagement {
     public static String Logout(HttpServletRequest request){
     	HttpSession session = request.getSession(false);
     	if(session !=null)
-    		session.invalidate();
-    	return html.user.render("not","").toString();
+    		session.setMaxInactiveInterval(1);
+    	return html.logout.render().toString();
     }
 
     
@@ -118,11 +113,8 @@ public class UserManagement {
         	return html.register.render(US,"","passwordfail","","").toString();
         if( ! password.equals(repeatpassword))
         	return html.register.render(US,"","","passwordnotthesame","").toString();
-         try {InternetAddress emailaddress = new InternetAddress(email);
-              emailaddress.validate();}
-         catch(AddressException ex){
-        	  return html.register.render(US,"","","","emailfail").toString();
-         }
+        if(! email.contains("@"))
+        	return html.register.render(US,"","","","emailfail").toString();
          
      	Entity USER = null;
         try {USER = datastore.get(KeyFactory.createKey("User", username));}
@@ -163,13 +155,20 @@ public class UserManagement {
 	  String usernameinchange = request.getParameter("usernameinchange").toString();
 	  String oldpassword = request.getParameter("oldpassword").toString();
 	  String newpassword = request.getParameter("newpassword").toString();
+	  String repeatnewpassword = request.getParameter("repeatnewpassword").toString();
 	  Entity user = null;
 	  try{ user = datastore.get(KeyFactory.createKey("User", usernameinchange));}
 	  catch (EntityNotFoundException e) { return html.changepassword.render(US,"userfail").toString(); }
 	  String username = user.getProperty("username").toString();
 	  String password = user.getProperty("password").toString();	
-
-		  if (password.equals(newpassword)){			  
+	  if (! oldpassword.equals(password))
+	      return html.changepassword.render(US,"oldpasswordwrong").toString();
+      if (newpassword.length()>12||newpassword.length()<6)
+    	  return html.changepassword.render(US,"newpasswordwrong").toString();
+      if (! newpassword.equals(repeatnewpassword))
+    	  return html.changepassword.render(US,"newpasswordnotmatch").toString();
+		
+      if (password.equals(newpassword)){			  
 			  return html.changepassword.render(US,"passwordfail").toString();
 		  }
 		  else{

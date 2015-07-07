@@ -13,7 +13,7 @@
     </div>
  <section>
    <main> 
-    <div id="notlogin" class="form-group">
+    <div id="notlogin" class="notlogin" class="form-group">
     <ul>
      <li><label id="notloginerror" class="notloginerror"></label></li>
      <li><label id="returnlogin"   class="returnlogin">
@@ -76,7 +76,12 @@
     	   document.getElementById('notlogin').style.display="";
     	   document.getElementById('fullloginuser').style.display="none";
     	   document.getElementById('loginuser').style.display="none";
-       }       
+       }   
+       
+       function clicklogin(){
+    	   document.getElementById('fullloginuser').style.display="none";
+    	   document.getElementById('loginuser').style.display="none";
+       }
        
        </script>
        
