@@ -99,4 +99,12 @@ object PlayController extends Controller {
     def upload = Action {
         Ok(Item.form())
     }
+	
+    def sortByLocation = Action { request => 
+        try {
+            Ok(Item.sortByLocation(request.req))
+        } catch {
+            case e: Exception => InternalServerError
+        }
+    }
 }
