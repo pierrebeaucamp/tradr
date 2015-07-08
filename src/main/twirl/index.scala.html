@@ -2,17 +2,18 @@
 
 @main("Tradr") {
     <section class="guides-section">
-	<form action="/searchTag" method="get">
-			<input type="text" name="tag" id="tag" required autofocus class="input-field">
-			<input type="submit" value="Search" class="button--primary">
-	</form>
-	<form action="/sortByLocation" method="get" id="sort-form">
-			<input type="submit" value="Sort By Distance" class="button--primary" onclick="appendLocationData()">
-	</form>
+    <div style="display: inline-flex;">	
+        <form action="/searchTag" method="get">
+                <input type="text" name="tag" id="tag" required autofocus class="input-field" style="width: 50vw">
+                <input type="submit" value="Search" class="button--secondary" style="margin-left: 1vw">
+        </form>
+        <form action="/sortByLocation" method="get" id="sort-form">
+                <input type="submit" value="Sort By Distance" class="button--secondary" onclick="appendLocationData()" style="margin-left: 1vw">
+        </form>
         @if(items.length == 0) { 
             <h3>There are no items to trade right now</h3>
         } 
-
+    </div>
         <ul class="guides-list container-medium">
             @for(item <- items) {    
                 @if(items.indexOf(item) % 2 == 0) { 

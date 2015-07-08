@@ -41,7 +41,11 @@ src/main/webapp
 app.yaml
 
 # Temp Files
-*.DS_Store
 *~
 *.swp
 *.swo
+
+# Misc
+*.DS_Store
+RemoteSystemsTempFiles/
+.metadata/
